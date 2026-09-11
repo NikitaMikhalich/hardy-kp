@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="robots" content="noindex, nofollow">
+<title>Форма для команды One Way | HARDY PENGUIN</title>
+<style>
+/* ============================================================
+   ТОКЕНЫ ДИЗАЙНА
+   Шаг сетки 4 px. Всё, что ниже, кратно ему.
+   ============================================================ */
+:root{
+  /* цвет */
+  --ink:#111; --muted:#6f6f6f; --soft:#f5f5f3; --line:#e7e7e7; --line-strong:#111;
+  --accent:#3ddc97; --accent-ink:#0b1f16; --link:#1f6feb;
+  /* отступы — шкала 4→64 */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  /* поля страницы */
+  --pad:var(--s4);
+  /* типографика: mobile-first */
+  --fs-display:26px; --lh-display:1.12;
+  --fs-lead:15px;    --lh-lead:1.55;
+  --fs-label:11px;   --ls-label:.14em;
+  --fs-name:15px;    --lh-name:1.3;
+  --fs-price:17px;
+  --fs-spec:12.5px;  --lh-spec:1.5;
+  --fs-body:15px;    --lh-body:1.5;
+  --fs-meta:12.5px;
+  /* форма */
+  --r-card:0px; --r-pill:999px; --border:1px;
+  /* ритм секций */
+  --section-gap:var(--s7);
+  --measure:68ch;
+}
+@media (min-width:720px){
+  :root{ --pad:var(--s6);
+    --fs-display:42px; --fs-lead:18px; --fs-label:12px;
+    --fs-name:16.5px; --fs-price:19px; --fs-spec:13.5px; --fs-body:16px;
+    --section-gap:var(--s8); --r-card:0px; }
+}
+@media (min-width:1100px){ :root{ --fs-display:46px; } }
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:#fff;
+  font-size:var(--fs-body); line-height:var(--lh-body);
+  font-variant-numeric:tabular-nums;          /* цифры одной ширины — цены не «пляшут» */
+}
+img{ width:100%; display:block; background:var(--soft); }
+.wrap{ padding:0 var(--pad); max-width:1180px; margin:0 auto; }
+
+/* ——— типографика ——— */
+.display{ font-size:var(--fs-display); line-height:var(--lh-display); font-weight:800;
+          letter-spacing:-.02em; }
+.lead{ font-size:var(--fs-lead); line-height:var(--lh-lead); color:#333;
+       max-width:var(--measure); }
+.label{ font-size:var(--fs-label); letter-spacing:var(--ls-label); text-transform:uppercase;
+        color:var(--muted); }
+.meta{ font-size:var(--fs-meta); color:var(--muted); }
+.name{ font-size:var(--fs-name); line-height:var(--lh-name); font-weight:600; }
+.price{ font-size:var(--fs-price); font-weight:800; }
+.spec{ font-size:var(--fs-spec); line-height:var(--lh-spec); color:#333; }
+.spec .hl{ color:var(--link); }
+
+/* ——— секции: единый ритм ——— */
+section{ margin-top:var(--section-gap); }
+.section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:var(--s3);
+               padding-bottom:var(--s3); border-bottom:var(--border) solid var(--line-strong);
+               margin-bottom:var(--s5); }
+h2.section-head{ border-bottom:none; padding-bottom:0; margin-bottom:var(--s5); }
+
+/* ——— шапка ——— */
+header{ padding:var(--s6) 0 var(--s5); border-bottom:var(--border) solid var(--line-strong); }
+header .display{ margin:var(--s3) 0 var(--s3); }
+header .actions{ display:flex; flex-wrap:wrap; gap:var(--s2); margin-top:var(--s5); }
+.btn{ display:inline-flex; align-items:center; justify-content:center;
+      min-height:44px;                       /* тап-зона не меньше 44 px */
+      padding:0 var(--s5); border-radius:var(--r-pill);
+      font-size:14px; font-weight:600; text-decoration:none;
+      border:var(--border) solid var(--line-strong); color:var(--ink); background:#fff; }
+.btn.primary{ background:var(--ink); color:#fff; }
+
+/* ——— состав лука ——— */
+details.look{ margin-top:var(--section-gap); border-top:2px solid var(--line-strong);
+              padding-top:var(--s4); }
+details.look>summary{ list-style:none; cursor:pointer; display:flex; align-items:center;
+  justify-content:space-between; gap:var(--s3); min-height:56px;
+  font-size:var(--fs-display); line-height:var(--lh-display); font-weight:800;
+  letter-spacing:-.02em; }
+details.look>summary::-webkit-details-marker{ display:none; }
+details.look>summary .caret{ font-size:14px; color:var(--muted); transition:transform .2s ease; }
+details.look[open]>summary .caret{ transform:rotate(180deg); }
+details.look>summary+*{ margin-top:var(--s5); }
+
+.card{ border:var(--border) solid var(--line-strong); border-radius:var(--r-card);
+       margin-bottom:var(--s3); }
+.card .top{ display:grid; grid-template-columns:46% 1fr; }
+.card .ph{ display:flex; align-items:center; justify-content:center; padding:var(--s3); }
+.card .ph img{ max-height:150px; width:auto; max-width:100%; object-fit:contain; background:none; }
+.card .meta-col{ display:flex; flex-direction:column; justify-content:center; gap:var(--s2);
+                 padding:var(--s3); border-left:var(--border) solid var(--line-strong); }
+.card .spec{ padding:var(--s3); border-top:var(--border) solid var(--line-strong); }
+.badge{ align-self:flex-start; background:var(--accent); color:var(--accent-ink);
+        font-size:12px; font-weight:700; letter-spacing:.02em;
+        padding:var(--s1) var(--s3); border-radius:var(--r-pill); }
+.total{ margin-top:var(--s5); font-size:var(--fs-price); font-weight:800; }
+.note{ margin-top:var(--s2); }
+
+/* ——— сетки изображений ——— */
+.grid{ display:grid; gap:var(--s3); }
+.grid img{ aspect-ratio:auto; }
+.grid--shots img{ aspect-ratio:4/5; object-fit:cover; }
+
+/* ——— информационные блоки ——— */
+.notes{ display:grid; gap:var(--s3); }
+.note-card{ border:var(--border) solid var(--line); padding:var(--s4); }
+.note-card h3{ font-size:var(--fs-name); font-weight:600; margin-bottom:var(--s2); }
+.note-card p{ font-size:var(--fs-spec); line-height:var(--lh-spec); color:#444; }
+
+.list{ list-style:none; }
+.list li{ padding:var(--s3) 0; border-bottom:var(--border) solid var(--line);
+          font-size:var(--fs-body); }
+.list li:first-child{ border-top:var(--border) solid var(--line); }
+
+footer{ margin-top:var(--section-gap); border-top:var(--border) solid var(--line);
+        padding:var(--s5) 0 var(--s7); }
+footer p{ font-size:var(--fs-meta); line-height:1.6; color:var(--muted); }
+
+/* ——— планшет и десктоп ——— */
+@media (min-width:720px){
+  .card .top{ grid-template-columns:32% 1fr; }
+  .card .ph img{ max-height:190px; }
+  .grid{ gap:var(--s4); }
+  .grid--shots{ grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+  .notes{ grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--s4); }
+  .note-card{ padding:var(--s5); }
+}
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } *{ transition:none!important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="label">HARDY PENGUIN · коммерческое предложение</p>
+    <h1 class="display">Форма для команды One Way</h1>
+    <p class="lead">Собрали под ваш зал и вашу айдентику: чёрная база, неоновый акцент, знак на груди.
+      Ниже — состав лука с ценами и характеристиками тканей, и как это читается на человеке.</p>
+    <div class="actions">
+      <a class="btn primary" href="#" id="share">Поделиться ссылкой</a>
+      <a class="btn" href="#looks">Смотреть кадры</a>
+    </div>
+  </header>
+
+  <details class="look" open>
+    <summary>Состав лука <span class="caret">▼</span></summary>
+
+    <article class="card">
+      <div class="top">
+        <div class="ph"><img src="img/cap.webp" alt="Шапка-докерка HARDY PENGUIN ’26"></div>
+        <div class="meta-col">
+          <p class="name">Шапка-докерка. Модель HARDY PENGUIN ‘26</p>
+          <p class="price">2000 руб.</p>
+        </div>
+      </div>
+      <p class="spec">Ткань: кулирка пенье 160 гр/м2<br>Состав: Хлопок 97%, Спандекс 3%<br>
+        Уход:<br><span class="hl">Износостойкость: </span></p>
+    </article>
+
+    <article class="card">
+      <div class="top">
+        <div class="ph"><img src="img/tee.webp" alt="Футболка оверсайз HARDY PENGUIN ’26"></div>
+        <div class="meta-col">
+          <p class="name">Футболка оверсайз с удлинённым рукавом. Модель HARDY PENGUIN ‘26</p>
+          <p class="price">3500 руб.</p>
+          <span class="badge">+ ПРИНТ</span>
+        </div>
+      </div>
+      <p class="spec">Ткань: кулирка пенье 160 гр/м2<br>Состав: Хлопок 97%, Спандекс 3%<br>
+        Уход:<br><span class="hl">Износостойкость: </span></p>
+    </article>
+
+    <article class="card">
+      <div class="top">
+        <div class="ph"><img src="img/apron.webp" alt="Фартук-пояс рабочий HARDY PENGUIN ’26"></div>
+        <div class="meta-col">
+          <p class="name">Фартук-пояс рабочий. Модель HARDY PENGUIN ‘26</p>
+        </div>
+      </div>
+      <p class="spec">Ткань: кулирка пенье 160 гр/м2<br>Состав: Хлопок 97%, Спандекс 3%<br>
+        Уход:<br><span class="hl">Износостойкость: </span></p>
+    </article>
+
+    <article class="card">
+      <div class="top">
+        <div class="ph"><img src="img/pants.webp" alt="Брюки рабочие HARDY PENGUIN ’26"></div>
+        <div class="meta-col">
+          <p class="name">Брюки рабочие свободного кроя на резинке. Модель HARDY PENGUIN ‘26</p>
+        </div>
+      </div>
+      <p class="spec">Ткань: кулирка пенье 160 гр/м2<br>Состав: Хлопок 97%, Спандекс 3%<br>
+        Уход:<br><span class="hl">Износостойкость: </span></p>
+    </article>
+
+    <p class="total">Общая стоимость лука: 12 500 руб.</p>
+    <p class="note meta">Можно добавить ремувку, брелок или ключницу — под ваш знак.</p>
+  </details>
+
+  <section>
+    <h2 class="label section-head">Изделия и деталировка</h2>
+    <div class="grid">
+      <img src="img/items-card.webp" alt="Изделие: вид спереди и сзади, детали ткани и воротника" loading="lazy">
+      <img src="img/tee-mark.webp" alt="Нанесение знака: спереди на груди и на спине" loading="lazy">
+    </div>
+  </section>
+
+  <section id="looks">
+    <h2 class="label section-head">Как это выглядит на человеке</h2>
+    <div class="grid grid--shots">
+      <img src="img/01-full-body.webp" alt="Лук в полный рост" loading="lazy">
+      <img src="img/05-environment.webp" alt="В интерьере" loading="lazy">
+      <img src="img/02-back.webp" alt="Вид сзади" loading="lazy">
+      <img src="img/03-top-detail.webp" alt="Деталь верха со знаком" loading="lazy">
+      <img src="img/04-bottom-detail.webp" alt="Деталь низа" loading="lazy">
+      <img src="img/06-angle.webp" alt="Дополнительный ракурс" loading="lazy">
+    </div>
+  </section>
+
+  <section>
+    <h2 class="label section-head">Что предлагаем дальше</h2>
+    <div class="notes">
+      <div class="note-card">
+        <h3>Состав на ваш парк</h3>
+        <p>4 фартука, 2 бармена, 2 админа — посчитаем стоимость комплекта на каждого
+           и покажем, что выгоднее взять на сезон.</p>
+      </div>
+      <div class="note-card">
+        <h3>Знак</h3>
+        <p>Покажем варианты размещения: от небольшой монограммы на груди
+           до крупного знака на спине.</p>
+      </div>
+      <div class="note-card">
+        <h3>Обновление к сезону</h3>
+        <p>Форма не устареет: к следующему сезону соберём новую коллекцию
+           в той же палитре — со скидкой за повтор.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="label section-head">Как работаем</h2>
+    <ul class="list">
+      <li>Утверждаем состав и знак — фиксируем спецификацию.</li>
+      <li>Присылаем смету и сроки на ваш парк.</li>
+      <li>Перед производством показываем образец нанесения на вашей ткани.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>HARDY PENGUIN · предложение подготовлено персонально для One Way, Архангельск.</p>
+    <p>Страница открывается по прямой ссылке и не индексируется поисковиками.</p>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('share').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (navigator.share) {
+      navigator.share({ title: 'Форма для команды One Way', url: location.href }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(location.href);
+      this.textContent = 'Ссылка скопирована';
+    }
+  });
+</script>
+</body>
+</html>
