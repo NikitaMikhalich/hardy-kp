@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Подбор шрифта · курсив и динамика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#111; --muted:#6f6f6f; --line:#e7e7e7; --accent:#3ddc97; --ease:cubic-bezier(.22,.61,.36,1); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;color:var(--ink);font-size:15px;line-height:1.5;padding:22px 16px 64px;
+       max-width:1080px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  h1{font-size:21px;font-weight:800;margin-bottom:6px}
+  .lead{color:var(--muted);font-size:14px;margin-bottom:22px}
+  /* ——— демонстрация «динамики»: строка в движении ——— */
+  .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+           padding:14px 0;margin-bottom:26px}
+  .marquee div{display:flex;gap:28px;white-space:nowrap;width:max-content;
+               animation:slide 18s linear infinite}
+  .marquee span{font-size:26px;font-weight:800;font-style:italic;letter-spacing:-.02em}
+  .marquee span.ghost{color:#c9c9c9}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .card{border:1px solid var(--line);padding:18px;margin-bottom:16px}
+  .name{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .t-display{font-size:29px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+  .t-display i{font-style:italic}
+  .t-sub{font-size:16px;font-weight:700;line-height:1.25;margin-top:6px}
+  .t-body{font-size:14.5px;line-height:1.55;color:#333;margin-top:8px}
+  .t-body i{font-style:italic;color:#111}
+  .t-price{font-size:17px;font-weight:800;margin-top:8px}
+  .meta{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .f-onest{font-family:'Onest',sans-serif}
+  .f-inter{font-family:'Inter',sans-serif}
+  .f-ubuntu{font-family:'Ubuntu Sans',sans-serif}
+  .f-source{font-family:'Source Sans 3',sans-serif}
+  .f-fira{font-family:'Fira Sans',sans-serif}
+  .note{border:1px solid var(--ink);padding:16px;margin-bottom:20px}
+  .note b{display:block;margin-bottom:6px}
+</style>
+</head>
+<body>
+  <h1>Курсив и динамика: пять гарнитур с настоящим италиком</h1>
+  <p class="lead">Проверяем на главном: как шрифт выглядит в движении и в курсиве. Ниже — одна и та же фраза прямой и курсивной, и строка-бегунок, чтобы увидеть динамику.</p>
+
+  <div class="note">
+    <b>Про цену RR Opague — важное</b>
+    Семья стоит €648, но нам не нужна вся семья. Для динамичного TOV достаточно двух-трёх стилей:
+    Medium, Bold и Italic — это примерно <b>€180–270</b> вместо €648. Об этом ниже, посмотри варианты.
+  </div>
+
+  <div class="marquee f-onest" aria-hidden="true">
+    <div>
+      <span>форма меняется</span><span class="ghost">новая коллекция</span>
+      <span>форма меняется</span><span class="ghost">новая коллекция</span>
+      <span>форма меняется</span><span class="ghost">новая коллекция</span>
+      <span>форма меняется</span><span class="ghost">новая коллекция</span>
+    </div>
+  </div>
+
+  <div class="card f-onest">
+    <div class="name">1 · Onest</div>
+    <div class="t-display">Форма <i>меняется</i> к сезону</div>
+    <div class="t-sub">Футболка оверсайз. Модель HARDY PENGUIN ‘26</div>
+    <div class="t-body">Команда выходит в зал, где неон и тёмная база. Форма должна читаться на фото и видео, <i>легко двигаться вместе с человеком</i> и держать цвет после стирок.</div>
+    <div class="t-price">3500 руб.</div>
+    <div class="meta">Курсив настоящий (не наклон), геометричный, городской. Лучший баланс «современно и читаемо» — моя ставка на текст плюс заголовки.</div>
+  </div>
+
+  <div class="card f-inter">
+    <div class="name">2 · Inter</div>
+    <div class="t-display">Форма <i>меняется</i> к сезону</div>
+    <div class="t-sub">Футболка оверсайз. Модель HARDY PENGUIN ‘26</div>
+    <div class="t-body">Команда выходит в зал, где неон и тёмная база. Форма должна читаться на фото и видео, <i>легко двигаться вместе с человеком</i> и держать цвет после стирок.</div>
+    <div class="t-price">3500 руб.</div>
+    <div class="meta">Самый нейтральный и «интерфейсный». Курсив есть, но он спокойный — динамики меньше, зато идеальная читаемость.</div>
+  </div>
+
+  <div class="card f-ubuntu">
+    <div class="name">3 · Ubuntu Sans</div>
+    <div class="t-display">Форма <i>меняется</i> к сезону</div>
+    <div class="t-sub">Футболка оверсайз. Модель HARDY PENGUIN ‘26</div>
+    <div class="t-body">Команда выходит в зал, где неон и тёмная база. Форма должна читаться на фото и видео, <i>легко двигаться вместе с человеком</i> и держать цвет после стирок.</div>
+    <div class="t-price">3500 руб.</div>
+    <div class="meta">Живой, чуть «разговорный» гротеск с характерным курсивом. Даёт человечность, меньше урбана.</div>
+  </div>
+
+  <div class="card f-source">
+    <div class="name">4 · Source Sans 3</div>
+    <div class="t-display">Форма <i>меняется</i> к сезону</div>
+    <div class="t-sub">Футболка оверсайз. Модель HARDY PENGUIN ‘26</div>
+    <div class="t-body">Команда выходит в зал, где неон и тёмная база. Форма должна читаться на фото и видео, <i>легко двигаться вместе с человеком</i> и держать цвет после стирок.</div>
+    <div class="t-price">3500 руб.</div>
+    <div class="meta">Рабочая лошадка с полноценным курсивом и отличной кириллицей. Спокойнее по характеру.</div>
+  </div>
+
+  <div class="card f-fira">
+    <div class="name">5 · Fira Sans</div>
+    <div class="t-display">Форма <i>меняется</i> к сезону</div>
+    <div class="t-sub">Футболка оверсайз. Модель HARDY PENGUIN ‘26</div>
+    <div class="t-body">Команда выходит в зал, где неон и тёмная база. Форма должна читаться на фото и видео, <i>легко двигаться вместе с человеком</i> и держать цвет после стирок.</div>
+    <div class="t-price">3500 руб.</div>
+    <div class="meta">Техничный, чуть индустриальный; курсив заметный. Под урбан-тему заходит, но в паре «заголовок-текст» жёстче остальных.</div>
+  </div>
+
+  <p class="meta">Скажи номер — поставлю на страницу. И отдельно скажи, рассматриваем ли покупку двух-трёх стилей RR Opague (≈€180–270): если да, я подберу пару под него — заголовки им, текст бесплатным, и всё это заменится одной подменой файла.</p>
+</body>
+</html>
