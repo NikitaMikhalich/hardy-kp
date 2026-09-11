@@ -2,33 +2,54 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
 <meta name="robots" content="noindex, nofollow">
 <title>One Way — предложение по форме | HARDY PENGUIN</title>
 <style>
-  :root { --ink:#111; --muted:#6b6b6b; --line:#e6e6e6; --magenta:#ff2e88; }
-  * { box-sizing:border-box; margin:0; padding:0; }
+  :root { --ink:#111; --muted:#6f6f6f; --line:#e7e7e7; --magenta:#ff2e88; --pad:18px; }
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-text-size-adjust:100%; }
+  html { scroll-behavior:smooth; }
   body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
          color:var(--ink); background:#fff; line-height:1.5; }
-  .wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
-  header { padding:56px 0 28px; border-bottom:1px solid var(--line); }
-  .kicker { font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
-  h1 { font-size:44px; font-weight:800; letter-spacing:-.02em; margin:14px 0 10px; }
+  img { width:100%; display:block; background:#f3f3f3; }
+  .wrap { padding:0 var(--pad); }
+  /* ——— шапка: мобильная версия сначала ——— */
+  header { padding:34px 0 20px; border-bottom:1px solid var(--line); }
+  .kicker { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  h1 { font-size:27px; line-height:1.15; font-weight:800; letter-spacing:-.02em; margin:10px 0 8px; }
   h1 span { color:var(--magenta); }
-  .lead { font-size:18px; color:#333; max-width:760px; }
-  h2 { font-size:15px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
-       margin:56px 0 18px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
-  .grid img, .full img { width:100%; display:block; border:1px solid var(--line); }
-  .full img { max-width:1000px; }
-  .card { border:1px solid var(--line); padding:22px; }
-  .card h3 { font-size:17px; margin-bottom:8px; }
-  .card p { font-size:15px; color:#444; }
-  ul { padding-left:20px; } li { margin:8px 0; font-size:16px; }
-  footer { margin-top:64px; border-top:1px solid var(--line); padding:26px 0 60px;
-           font-size:14px; color:var(--muted); }
+  .lead { font-size:15px; color:#333; }
   .draft { display:inline-block; border:1px solid var(--magenta); color:var(--magenta);
-           font-size:12px; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
+           font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 8px; margin-top:14px; }
+  .actions { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:12px 18px; border-radius:999px; font-size:14px; font-weight:600;
+         text-decoration:none; border:1px solid var(--ink); color:var(--ink); background:#fff; }
+  .btn.primary { background:var(--ink); color:#fff; }
+  /* ——— блоки ——— */
+  h2 { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+       margin:34px 0 12px; }
+  .stack { display:grid; gap:12px; }
+  .note { border:1px solid var(--line); padding:16px; border-radius:2px; }
+  .note h3 { font-size:15px; margin-bottom:6px; }
+  .note p { font-size:14px; color:#444; }
+  ul { padding-left:18px; } li { margin:7px 0; font-size:15px; }
+  footer { margin-top:40px; border-top:1px solid var(--line); padding:20px 0 44px;
+           font-size:12.5px; color:var(--muted); }
+
+  /* ——— планшет и десктоп ——— */
+  @media (min-width:720px) {
+    :root { --pad:32px; }
+    header { padding:56px 0 28px; }
+    h1 { font-size:40px; }
+    .lead { font-size:18px; max-width:760px; }
+    .wrap { max-width:1120px; margin:0 auto; }
+    h2 { margin:48px 0 16px; font-size:12px; }
+    .stack { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .shots { grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+    .note { padding:20px; }
+  }
+  @media (min-width:1100px) { h1 { font-size:46px; } }
 </style>
 </head>
 <body>
@@ -36,36 +57,40 @@
   <header>
     <div class="kicker">HARDY PENGUIN · персональное предложение</div>
     <h1>Форма для команды <span>One Way</span></h1>
-    <p class="lead">Собрали под ваш зал и вашу айдентику: чёрная база, неоновый акцент,
-      знак на груди. Ниже — состав комплекта и как это читается на человеке и в интерьере.</p>
-    <p style="margin-top:18px"><span class="draft">черновик · не для распространения</span></p>
+    <p class="lead">Собрали под ваш зал и вашу айдентику: чёрная база, неоновый акцент, знак на груди.
+      Ниже — состав комплекта и как это читается на человеке и в интерьере.</p>
+    <div class="actions">
+      <a class="btn primary" href="#" id="share">Поделиться ссылкой</a>
+      <a class="btn" href="#looks">Смотреть кадры</a>
+    </div>
+    <p><span class="draft">черновик · не для распространения</span></p>
   </header>
 
   <h2>Состав лука · схема для решения</h2>
-  <div class="full"><img src="img/schema.png" alt="Схема лука: зоны и слои"></div>
+  <img src="img/schema.webp" alt="Схема лука: зоны и слои" loading="eager">
 
-  <h2>Как это выглядит на человеке и в зале</h2>
-  <div class="grid">
-    <img src="img/01-full-body.png" alt="Кадр в полный рост">
-    <img src="img/02-back.png" alt="Вид сзади">
-    <img src="img/03-top-detail.png" alt="Деталь верха">
-    <img src="img/04-bottom-detail.png" alt="Деталь низа">
-    <img src="img/05-environment.png" alt="В интерьере">
-    <img src="img/06-angle.png" alt="Дополнительный ракурс">
+  <h2 id="looks">Как это выглядит на человеке и в зале</h2>
+  <div class="stack shots">
+    <img src="img/01-full-body.webp" alt="Кадр в полный рост" loading="lazy">
+    <img src="img/02-back.webp" alt="Вид сзади" loading="lazy">
+    <img src="img/03-top-detail.webp" alt="Деталь верха" loading="lazy">
+    <img src="img/04-bottom-detail.webp" alt="Деталь низа" loading="lazy">
+    <img src="img/05-environment.webp" alt="В интерьере" loading="lazy">
+    <img src="img/06-angle.webp" alt="Дополнительный ракурс" loading="lazy">
   </div>
 
   <h2>Что решаем на этом шаге</h2>
-  <div class="grid">
-    <div class="card">
+  <div class="stack">
+    <div class="note">
       <h3>Вариант лука</h3>
       <p>Оставляем базу или меняем состав: худи вместо футболки, жилет, фартук с грудкой.</p>
     </div>
-    <div class="card">
+    <div class="note">
       <h3>Знак</h3>
       <p>Место и размер: грудь слева 8–10 см вышивкой, спина 20–25 см шелкографией,
          монограмма у ворота 4–5 см.</p>
     </div>
-    <div class="card">
+    <div class="note">
       <h3>Парк</h3>
       <p>4 фартука, 2 бармена, 2 админа. После утверждения состава считаем точную смету
          на комплекты и обновление к следующему сезону.</p>
@@ -84,5 +109,15 @@
     Ссылка не индексируется поисковиками и предназначена для внутреннего обсуждения.
   </footer>
 </div>
+
+<script>
+  document.getElementById('share').addEventListener('click', function (e) {
+    e.preventDefault();
+    var data = { title: 'Форма для команды One Way', text: 'Предложение по форме от HARDY PENGUIN',
+                 url: location.href };
+    if (navigator.share) { navigator.share(data).catch(function(){}); }
+    else if (navigator.clipboard) { navigator.clipboard.writeText(location.href); alert('Ссылка скопирована'); }
+  });
+</script>
 </body>
 </html>
