@@ -174,6 +174,14 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .stub-1{margin-top:3.4375rem;min-height:4.0625rem}
 .stub-2{margin-top:18.625rem;min-height:4.5625rem}
 .tail{height:6.25rem}
+
+/* ——— сворачиваемый «Состав лука» ——— */
+.composition{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;
+  display:flex;align-items:center;justify-content:center;gap:.375rem}
+.composition .caret{display:inline-block;transition:transform .38s cubic-bezier(.22,.61,.36,1)}
+.composition.is-closed .caret{transform:rotate(180deg)}
+.look-body{overflow:hidden;transition:height .42s cubic-bezier(.22,.61,.36,1)}
+@media (prefers-reduced-motion:reduce){.look-body{transition:none}.composition .caret{transition:none}}
 </style>
 </head>
 <body>
@@ -209,7 +217,8 @@ textarea.field{min-height:5.5rem;resize:vertical}
     </div>
   </figure>
 
-<h2 class="disp composition">Состав лука <span class="caret">▼</span></h2>
+<h2 class="disp composition" id="look-head" role="button" tabindex="0" aria-expanded="true" aria-controls="look-body">Состав лука <span class="caret" aria-hidden="true">▼</span></h2>
+  <div class="look-body" id="look-body">
   <article class="card card--first card--cap">
     <span class="vline v-top"></span><span class="hline h-170"></span>
     <img class="abs cap-img" src="assets/cap.webp" alt="Шапка-докерка HARDY PENGUIN ’26">
@@ -242,6 +251,8 @@ textarea.field{min-height:5.5rem;resize:vertical}
     <p class="abs title c4-title">Брюки рабочие свободного кроя на резинке. Модель HARDY PENGUIN ‘26</p>
     <p class="abs spec c4-spec">Ткань: кулирка пенье 160 гр/м2<br>Состав: Хлопок 97%, Спандекс 3%<br>Уход:<br><span class="blue">Износостойкость: </span></p>
   </article>
+
+  </div>
 
   <p class="total">Общая стоимость лука:  12 500 руб.</p>
   <p class="note">Можно добавить ремувку, брелок или ключницу...</p>
@@ -550,5 +561,50 @@ textarea.field{min-height:5.5rem;resize:vertical}
   load();
 })();
 </script>
+
+<script>
+(function () {
+  var head = document.getElementById('look-head');
+  var body = document.getElementById('look-body');
+  if (!head || !body) return;
+  var animating = false;
+
+  function setHeight(px) { body.style.height = px + 'px'; }
+
+  function collapse() {
+    if (animating) return;
+    animating = true;
+    setHeight(body.scrollHeight);
+    void body.offsetHeight;                     // форсируем перерисовку, чтобы анимация началась
+    requestAnimationFrame(function () {
+      setHeight(0);
+      head.classList.add('is-closed');
+      head.setAttribute('aria-expanded', 'false');
+    });
+    setTimeout(function () { body.style.height = '0px'; animating = false; }, 460);
+  }
+
+  function expand() {
+    if (animating) return;
+    animating = true;
+    setHeight(body.scrollHeight);
+    head.classList.remove('is-closed');
+    head.setAttribute('aria-expanded', 'true');
+    setTimeout(function () {
+      body.style.height = 'auto';
+      animating = false;
+    }, 460);
+  }
+
+  function toggle() { head.classList.contains('is-closed') ? expand() : collapse(); }
+
+  head.addEventListener('click', toggle);
+  head.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+  body.style.height = 'auto';
+})();
+</script>
+
 </body>
 </html>
