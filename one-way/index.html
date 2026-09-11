@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111111">
 <meta name="robots" content="noindex, nofollow">
-<title>One Way — предложение по форме | HARDY PENGUIN</title>
+<title>Форма для команды One Way | HARDY PENGUIN</title>
 <style>
   :root { --ink:#111; --muted:#6f6f6f; --line:#e7e7e7; --magenta:#ff2e88; --pad:18px; }
   * { box-sizing:border-box; margin:0; padding:0; -webkit-text-size-adjust:100%; }
@@ -14,36 +14,34 @@
          color:var(--ink); background:#fff; line-height:1.5; }
   img { width:100%; display:block; background:#f3f3f3; }
   .wrap { padding:0 var(--pad); }
-  /* ——— шапка: мобильная версия сначала ——— */
   header { padding:34px 0 20px; border-bottom:1px solid var(--line); }
   .kicker { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
   h1 { font-size:27px; line-height:1.15; font-weight:800; letter-spacing:-.02em; margin:10px 0 8px; }
   h1 span { color:var(--magenta); }
   .lead { font-size:15px; color:#333; }
-  .draft { display:inline-block; border:1px solid var(--magenta); color:var(--magenta);
-           font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 8px; margin-top:14px; }
   .actions { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
   .btn { display:inline-block; padding:12px 18px; border-radius:999px; font-size:14px; font-weight:600;
          text-decoration:none; border:1px solid var(--ink); color:var(--ink); background:#fff; }
   .btn.primary { background:var(--ink); color:#fff; }
-  /* ——— блоки ——— */
   h2 { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
        margin:34px 0 12px; }
   .stack { display:grid; gap:12px; }
-  .note { border:1px solid var(--line); padding:16px; border-radius:2px; }
+  .note { border:1px solid var(--line); padding:16px; }
   .note h3 { font-size:15px; margin-bottom:6px; }
   .note p { font-size:14px; color:#444; }
   ul { padding-left:18px; } li { margin:7px 0; font-size:15px; }
+  .spec { border-top:1px solid var(--line); }
+  .spec div { display:flex; justify-content:space-between; gap:14px; padding:11px 0;
+              border-bottom:1px solid var(--line); font-size:15px; }
+  .spec span:first-child { color:var(--muted); }
   footer { margin-top:40px; border-top:1px solid var(--line); padding:20px 0 44px;
            font-size:12.5px; color:var(--muted); }
-
-  /* ——— планшет и десктоп ——— */
   @media (min-width:720px) {
     :root { --pad:32px; }
+    .wrap { max-width:1120px; margin:0 auto; }
     header { padding:56px 0 28px; }
     h1 { font-size:40px; }
     .lead { font-size:18px; max-width:760px; }
-    .wrap { max-width:1120px; margin:0 auto; }
     h2 { margin:48px 0 16px; font-size:12px; }
     .stack { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
     .shots { grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
@@ -57,66 +55,77 @@
   <header>
     <div class="kicker">HARDY PENGUIN · персональное предложение</div>
     <h1>Форма для команды <span>One Way</span></h1>
-    <p class="lead">Собрали под ваш зал и вашу айдентику: чёрная база, неоновый акцент, знак на груди.
-      Ниже — состав комплекта и как это читается на человеке и в интерьере.</p>
+    <p class="lead">Собрали под ваш зал и вашу айдентику: чёрная база, неоновый акцент,
+      знак на груди. Ниже — как комплект читается на человеке и в интерьере.</p>
     <div class="actions">
       <a class="btn primary" href="#" id="share">Поделиться ссылкой</a>
       <a class="btn" href="#looks">Смотреть кадры</a>
     </div>
-    <p><span class="draft">черновик · не для распространения</span></p>
   </header>
 
-  <h2>Состав лука · схема для решения</h2>
-  <img src="img/schema.webp" alt="Схема лука: зоны и слои" loading="eager">
+  <h2>Что в комплекте</h2>
+  <div class="spec">
+    <div><span>Верх</span><span>футболка oversize, плотный хлопок, чёрная</span></div>
+    <div><span>Середина</span><span>сумка-пояс с фартуком, кант в акцентном цвете</span></div>
+    <div><span>Низ</span><span>брюки прямого кроя, чёрные</span></div>
+    <div><span>Головной убор</span><span>кепка-докер, чёрная</span></div>
+    <div><span>Знак</span><span>монограмма One Way — вышивка на груди слева,
+      на спине у плеча</span></div>
+    <div><span>Палитра</span><span>чёрный, маджента, кислотно-зелёный, золото</span></div>
+  </div>
 
-  <h2 id="looks">Как это выглядит на человеке и в зале</h2>
+  <h2 id="looks">Как это выглядит</h2>
   <div class="stack shots">
-    <img src="img/01-full-body.webp" alt="Кадр в полный рост" loading="lazy">
-    <img src="img/02-back.webp" alt="Вид сзади" loading="lazy">
-    <img src="img/03-top-detail.webp" alt="Деталь верха" loading="lazy">
-    <img src="img/04-bottom-detail.webp" alt="Деталь низа" loading="lazy">
+    <img src="img/01-full-body.webp" alt="Лук в полный рост" loading="eager">
     <img src="img/05-environment.webp" alt="В интерьере" loading="lazy">
+    <img src="img/02-back.webp" alt="Вид сзади" loading="lazy">
+    <img src="img/03-top-detail.webp" alt="Деталь верха со знаком" loading="lazy">
+    <img src="img/04-bottom-detail.webp" alt="Деталь низа" loading="lazy">
     <img src="img/06-angle.webp" alt="Дополнительный ракурс" loading="lazy">
   </div>
 
-  <h2>Что решаем на этом шаге</h2>
+  <h2>Что предлагаем дальше</h2>
   <div class="stack">
     <div class="note">
-      <h3>Вариант лука</h3>
-      <p>Оставляем базу или меняем состав: худи вместо футболки, жилет, фартук с грудкой.</p>
+      <h3>Утвердить состав</h3>
+      <p>Можно оставить базу или заменить детали: худи вместо футболки, жилет,
+         фартук с грудкой для админов.</p>
     </div>
     <div class="note">
-      <h3>Знак</h3>
-      <p>Место и размер: грудь слева 8–10 см вышивкой, спина 20–25 см шелкографией,
-         монограмма у ворота 4–5 см.</p>
+      <h3>Выбрать знак</h3>
+      <p>Покажем варианты размещения — от небольшой монограммы на груди
+         до крупного знака на спине.</p>
     </div>
     <div class="note">
-      <h3>Парк</h3>
-      <p>4 фартука, 2 бармена, 2 админа. После утверждения состава считаем точную смету
-         на комплекты и обновление к следующему сезону.</p>
+      <h3>Получить смету</h3>
+      <p>Считаем стоимость на ваш парк — 4 фартука, 2 бармена, 2 админа —
+         и подскажем, что выгоднее взять на сезон.</p>
     </div>
   </div>
 
-  <h2>Дальше</h2>
+  <h2>Как работаем</h2>
   <ul>
-    <li>Выбираете вариант и место знака — фиксируем спецификацию.</li>
-    <li>Считаем смету на ваш парк и сроки.</li>
-    <li>Перед производством показываем образец нанесения на ткани вашего цвета.</li>
+    <li>Утверждаем состав и знак — фиксируем спецификацию.</li>
+    <li>Присылаем смету и сроки на ваш парк.</li>
+    <li>Перед производством показываем образец нанесения на вашей ткани.</li>
+    <li>Дальше можем обновлять коллекцию к сезону — чтобы команда всегда выглядела актуально.</li>
   </ul>
 
   <footer>
-    HARDY PENGUIN · страница подготовлена персонально для One Way, Архангельск.<br>
-    Ссылка не индексируется поисковиками и предназначена для внутреннего обсуждения.
+    HARDY PENGUIN · предложение подготовлено персонально для One Way, Архангельск.<br>
+    Страница открывается по прямой ссылке и не индексируется поисковиками.
   </footer>
 </div>
 
 <script>
   document.getElementById('share').addEventListener('click', function (e) {
     e.preventDefault();
-    var data = { title: 'Форма для команды One Way', text: 'Предложение по форме от HARDY PENGUIN',
-                 url: location.href };
-    if (navigator.share) { navigator.share(data).catch(function(){}); }
-    else if (navigator.clipboard) { navigator.clipboard.writeText(location.href); alert('Ссылка скопирована'); }
+    if (navigator.share) {
+      navigator.share({ title: 'Форма для команды One Way', url: location.href }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(location.href);
+      this.textContent = 'Ссылка скопирована';
+    }
   });
 </script>
 </body>
