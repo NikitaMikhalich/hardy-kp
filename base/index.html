@@ -1137,5 +1137,19 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 /* фон строки итога — прозрачный, ничего не подсвечиваем */
 .total-block{background:transparent !important;border:0 !important}
 </style>
+
+<style>
+/* числа итога — прямым начертанием, как все цифры в таблицах */
+.total-block .tb-sets,.total-block .tb-price,.total-block .tb-price s,
+.total-block .tb-dprice{font-style:normal !important;font-variant-numeric:tabular-nums}
+.total-block .tb-price s{color:#8a8a8a}
+.total-block .tb-label{font-style:normal !important}
+</style>
+
+<style>
+/* число комплектов — по центру той же колонки, что и цифры в строках */
+.total-block .tb-sets{flex:0 0 18% !important;text-align:center !important}
+.total-block .tb-label{flex:0 0 44% !important}
+</style>
 </body>
 </html>
