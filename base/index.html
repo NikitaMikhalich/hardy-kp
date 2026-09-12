@@ -1,126 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<script>
-/* Галерея-листалка кадров лука.
-   Палец — touch-события с захватом оси (вертикальный скролл страницы не ломаем),
-   мышь — pointer-события, кадр тянется за курсором. Плюс флик, точки, стрелки,
-   автопрокрутка. Без JS работает нативный скролл со снапом (см. CSS). */
-(() => {
-  const root = document.getElementById('look');
-  if (!root) return;
-  const track = root.querySelector('.track');
-  const slides = [...track.querySelectorAll('.slide')];
-  const dots = [...root.querySelectorAll('.pager button')];
-  const N = slides.length;
-  if (N < 2) return;
 
-  root.classList.add('is-js');
-
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const AUTOPLAY_MS = 5500;
-  const AXIS_PX = 7;        // после стольких пикселей решаем: горизонталь или вертикаль
-  const DIST_RATIO = 0.12;  // доля ширины кадра, достаточная для перелистывания
-  const FLICK_PX = 22;      // короткий быстрый флик тоже листает
-  const FLICK_MS = 320;
-
-  let i = 0, dragging = false, axis = null, startX = 0, startY = 0, dx = 0, t0 = 0;
-  let timer = null, onScreen = true, held = false;
-
-  const place = (offset, animate) => {
-    track.classList.toggle('is-dragging', !animate);
-    track.style.transform = `translate3d(calc(${-i * 100}% + ${offset}px),0,0)`;
-  };
-  const paint = () => {
-    place(0, true);
-    dots.forEach((d, k) => { d.classList.toggle('is-active', k === i); d.setAttribute('aria-selected', String(k === i)); });
-    slides.forEach((s, k) => s.setAttribute('aria-hidden', String(k !== i)));
-  };
-  const go = n => { i = ((n % N) + N) % N; paint(); };
-
-  const stop = () => { clearInterval(timer); timer = null; };
-  const start = () => {
-    stop();
-    if (reduce || !onScreen || held || dragging) return;
-    timer = setInterval(() => go(i + 1), AUTOPLAY_MS);
-  };
-
-  const dragBegin = (x, y) => {
-    dragging = true; axis = null; startX = x; startY = y; dx = 0; t0 = performance.now();
-    stop(); place(0, false);
-  };
-  const dragEnd = () => {
-    if (!dragging) return;
-    dragging = false;
-    const w = root.clientWidth || 1;
-    const fast = Math.abs(dx) >= FLICK_PX && performance.now() - t0 <= FLICK_MS;
-    if (axis === 'x' && (Math.abs(dx) > Math.max(32, w * DIST_RATIO) || fast)) go(i + (dx < 0 ? 1 : -1));
-    else paint();
-    dx = 0; axis = null;
-    start();
-  };
-
-  /* палец */
-  root.addEventListener('touchstart', e => {
-    if (e.touches.length !== 1) { dragging = false; return; }
-    dragBegin(e.touches[0].clientX, e.touches[0].clientY);
-  }, { passive: true });
-
-  root.addEventListener('touchmove', e => {
-    if (!dragging || e.touches.length !== 1) return;
-    const t = e.touches[0];
-    const mx = t.clientX - startX, my = t.clientY - startY;
-    if (axis === null) {
-      if (Math.abs(mx) < AXIS_PX && Math.abs(my) < AXIS_PX) return;
-      axis = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
-      if (axis === 'y') { dragEnd(); return; }        // вертикаль отдаём странице
-    }
-    if (axis !== 'x') return;
-    if (e.cancelable) e.preventDefault();              // жест наш, страница не скроллится боком
-    dx = mx;
-    place(dx, false);
-  }, { passive: false });
-
-  const touchFinish = () => dragEnd();
-  root.addEventListener('touchend', touchFinish);
-  root.addEventListener('touchcancel', touchFinish);
-  root.addEventListener('dragstart', e => e.preventDefault());
-
-  /* мышь */
-  root.addEventListener('pointerdown', e => {
-    if (e.pointerType !== 'mouse' || e.button !== 0) return;
-    try { root.setPointerCapture(e.pointerId); } catch (_) {}
-    dragBegin(e.clientX, e.clientY);
-  });
-  root.addEventListener('pointermove', e => {
-    if (!dragging || e.pointerType !== 'mouse') return;
-    axis = 'x';
-    dx = e.clientX - startX;
-    place(dx, false);
-  });
-  root.addEventListener('pointerup', e => { if (e.pointerType === 'mouse') dragEnd(); });
-  root.addEventListener('pointercancel', e => { if (e.pointerType === 'mouse') dragEnd(); });
-
-  /* автопрокрутка: пауза на наведение, фокус, драг и скрытую вкладку */
-  root.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; held = true; stop(); });
-  root.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; held = false; start(); });
-  root.addEventListener('focusin', () => { held = true; stop(); });
-  root.addEventListener('focusout', () => { held = false; start(); });
-  document.addEventListener('visibilitychange', () => { onScreen = !document.hidden; onScreen ? start() : stop(); });
-
-  dots.forEach((d, k) => d.addEventListener('click', () => { go(k); start(); }));
-  root.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') { go(i + 1); start(); e.preventDefault(); }
-    if (e.key === 'ArrowLeft') { go(i - 1); start(); e.preventDefault(); }
-  });
-
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; onScreen ? start() : stop(); }, { threshold: 0.35 }).observe(root);
-  }
-  paint();
-  start();
-})();
-</script>
 <script>document.documentElement.classList.add('js');</script>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
@@ -696,5 +577,125 @@ textarea.field{min-height:5.5rem;resize:vertical}
     </div>
   </footer>
 
+<script>
+/* Галерея-листалка кадров лука.
+   Палец — touch-события с захватом оси (вертикальный скролл страницы не ломаем),
+   мышь — pointer-события, кадр тянется за курсором. Плюс флик, точки, стрелки,
+   автопрокрутка. Без JS работает нативный скролл со снапом (см. CSS). */
+(() => {
+  const root = document.getElementById('look');
+  if (!root) return;
+  const track = root.querySelector('.track');
+  const slides = [...track.querySelectorAll('.slide')];
+  const dots = [...root.querySelectorAll('.pager button')];
+  const N = slides.length;
+  if (N < 2) return;
+
+  root.classList.add('is-js');
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const AUTOPLAY_MS = 5500;
+  const AXIS_PX = 7;        // после стольких пикселей решаем: горизонталь или вертикаль
+  const DIST_RATIO = 0.12;  // доля ширины кадра, достаточная для перелистывания
+  const FLICK_PX = 22;      // короткий быстрый флик тоже листает
+  const FLICK_MS = 320;
+
+  let i = 0, dragging = false, axis = null, startX = 0, startY = 0, dx = 0, t0 = 0;
+  let timer = null, onScreen = true, held = false;
+
+  const place = (offset, animate) => {
+    track.classList.toggle('is-dragging', !animate);
+    track.style.transform = `translate3d(calc(${-i * 100}% + ${offset}px),0,0)`;
+  };
+  const paint = () => {
+    place(0, true);
+    dots.forEach((d, k) => { d.classList.toggle('is-active', k === i); d.setAttribute('aria-selected', String(k === i)); });
+    slides.forEach((s, k) => s.setAttribute('aria-hidden', String(k !== i)));
+  };
+  const go = n => { i = ((n % N) + N) % N; paint(); };
+
+  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => {
+    stop();
+    if (reduce || !onScreen || held || dragging) return;
+    timer = setInterval(() => go(i + 1), AUTOPLAY_MS);
+  };
+
+  const dragBegin = (x, y) => {
+    dragging = true; axis = null; startX = x; startY = y; dx = 0; t0 = performance.now();
+    stop(); place(0, false);
+  };
+  const dragEnd = () => {
+    if (!dragging) return;
+    dragging = false;
+    const w = root.clientWidth || 1;
+    const fast = Math.abs(dx) >= FLICK_PX && performance.now() - t0 <= FLICK_MS;
+    if (axis === 'x' && (Math.abs(dx) > Math.max(32, w * DIST_RATIO) || fast)) go(i + (dx < 0 ? 1 : -1));
+    else paint();
+    dx = 0; axis = null;
+    start();
+  };
+
+  /* палец */
+  root.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { dragging = false; return; }
+    dragBegin(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  root.addEventListener('touchmove', e => {
+    if (!dragging || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    const mx = t.clientX - startX, my = t.clientY - startY;
+    if (axis === null) {
+      if (Math.abs(mx) < AXIS_PX && Math.abs(my) < AXIS_PX) return;
+      axis = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+      if (axis === 'y') { dragEnd(); return; }        // вертикаль отдаём странице
+    }
+    if (axis !== 'x') return;
+    if (e.cancelable) e.preventDefault();              // жест наш, страница не скроллится боком
+    dx = mx;
+    place(dx, false);
+  }, { passive: false });
+
+  const touchFinish = () => dragEnd();
+  root.addEventListener('touchend', touchFinish);
+  root.addEventListener('touchcancel', touchFinish);
+  root.addEventListener('dragstart', e => e.preventDefault());
+
+  /* мышь */
+  root.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    try { root.setPointerCapture(e.pointerId); } catch (_) {}
+    dragBegin(e.clientX, e.clientY);
+  });
+  root.addEventListener('pointermove', e => {
+    if (!dragging || e.pointerType !== 'mouse') return;
+    axis = 'x';
+    dx = e.clientX - startX;
+    place(dx, false);
+  });
+  root.addEventListener('pointerup', e => { if (e.pointerType === 'mouse') dragEnd(); });
+  root.addEventListener('pointercancel', e => { if (e.pointerType === 'mouse') dragEnd(); });
+
+  /* автопрокрутка: пауза на наведение, фокус, драг и скрытую вкладку */
+  root.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; held = true; stop(); });
+  root.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; held = false; start(); });
+  root.addEventListener('focusin', () => { held = true; stop(); });
+  root.addEventListener('focusout', () => { held = false; start(); });
+  document.addEventListener('visibilitychange', () => { onScreen = !document.hidden; onScreen ? start() : stop(); });
+
+  dots.forEach((d, k) => d.addEventListener('click', () => { go(k); start(); }));
+  root.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { go(i + 1); start(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { go(i - 1); start(); e.preventDefault(); }
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; onScreen ? start() : stop(); }, { threshold: 0.35 }).observe(root);
+  }
+  paint();
+  start();
+})();
+</script>
 </body>
 </html>
