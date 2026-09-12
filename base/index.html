@@ -576,11 +576,11 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
   <section class="calc summary">
     <h2 class="disp composition" style="cursor:default">Сводно по лукам</h2>
     <table class="price-table">
-      <thead><tr><th>Лук</th><th class="num">Кол-во</th><th class="num">Цена лука</th><th class="num">Сумма</th></tr></thead>
+      <thead><tr><th></th><th class="num">Кол-во</th><th class="num">Цена лука</th><th class="num">Сумма</th></tr></thead>
       <tbody>
-        <tr data-sync-look data-price="12500"><td>Лук 1 · Официант</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>4</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>50 000 ₽</td></tr>
-        <tr data-price="12500"><td>Лук 2 · Бармен</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
-        <tr data-price="12500"><td>Лук 3 · Админ</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
+        <tr data-sync-look data-price="12500"><td>Официант</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>4</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>50 000 ₽</td></tr>
+        <tr data-price="12500"><td>Бармен</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
+        <tr data-price="12500"><td>Админ</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
       </tbody>
       <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr></tfoot>
     </table>
@@ -908,5 +908,11 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   update();
 })();
 </script>
+
+<style>
+/* галочка без внешней рамки */
+.pick{border:0 !important;background:#ececec;border-radius:2px}
+.pick input:checked{background:var(--ink)}
+</style>
 </body>
 </html>
