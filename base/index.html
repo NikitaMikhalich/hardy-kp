@@ -183,14 +183,14 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .look-body{overflow:hidden;transition:height .42s cubic-bezier(.22,.61,.36,1)}
 @media (prefers-reduced-motion:reduce){.look-body{transition:none}.composition .caret{transition:none}}
 
-/* ——— тон навигации галереи под цвет фото ——— */
-.pager.nav-tone button{background:rgba(17,17,17,.28)}
-.pager.nav-tone button.is-active{background:#111}
-.pager.nav-tone.is-light button{background:rgba(255,255,255,.5)}
-.pager.nav-tone.is-light button.is-active{background:#fff}
-.pager.nav-tone.is-dark button{background:rgba(17,17,17,.32)}
-.pager.nav-tone.is-dark button.is-active{background:#111}
-.pager.nav-tone button{transition:background .35s cubic-bezier(.22,.61,.36,1),width .35s cubic-bezier(.22,.61,.36,1)}
+
+/* ——— навигация галереи: тон по яркости кадра (рассчитан при сборке) ——— */
+.pager button{transition:background .4s cubic-bezier(.22,.61,.36,1),width .4s cubic-bezier(.22,.61,.36,1),box-shadow .4s ease}
+.pager.is-light button{background:rgba(255,255,255,.45)}
+.pager.is-light button.is-active{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.pager.is-dark button{background:rgba(17,17,17,.22)}
+.pager.is-dark button.is-active{background:rgba(17,17,17,.72)}
+.pager button:hover{background:rgba(127,127,127,.55)}
 </style>
 </head>
 <body>
@@ -220,9 +220,9 @@ textarea.field{min-height:5.5rem;resize:vertical}
       <img class="slide" src="assets/look-3.webp" alt="Кадр 3: тот же лук в баре с неоновой подсветкой">
     </div>
     <div class="pager" role="tablist" aria-label="Кадры">
-      <button type="button" role="tab" class="is-active" aria-selected="true" aria-label="Кадр 1"></button>
-      <button type="button" role="tab" aria-selected="false" aria-label="Кадр 2"></button>
-      <button type="button" role="tab" aria-selected="false" aria-label="Кадр 3"></button>
+      <button data-tone="dark" type="button" role="tab" class="is-active" aria-selected="true" aria-label="Кадр 1"></button>
+      <button data-tone="dark" type="button" role="tab" aria-selected="false" aria-label="Кадр 2"></button>
+      <button data-tone="light" type="button" role="tab" aria-selected="false" aria-label="Кадр 3"></button>
     </div>
   </figure>
 
@@ -616,66 +616,26 @@ textarea.field{min-height:5.5rem;resize:vertical}
 </script>
 
 
+
 <script>
 (function () {
-  var shot = document.querySelector('.shot');
   var pager = document.querySelector('.pager');
-  if (!shot || !pager) return;
-  pager.classList.add('nav-tone');
-
-  var slides = Array.prototype.slice.call(shot.querySelectorAll('img'));
-  if (!slides.length) return;
-  var cv = document.createElement('canvas');
-  cv.width = 32; cv.height = 32;
-  var ctx = cv.getContext('2d', { willReadFrequently: true });
-
-  function luminance(img) {
-    try {
-      // берём нижнюю треть кадра — именно она оказывается под точками
-      var sh = img.naturalHeight, sw = img.naturalWidth;
-      var sy = Math.floor(sh * 0.68), sh2 = Math.max(1, Math.floor(sh * 0.32));
-      ctx.clearRect(0, 0, 32, 32);
-      ctx.drawImage(img, 0, sy, sw, sh2, 0, 0, 32, 32);
-      var d = ctx.getImageData(0, 0, 32, 32).data, sum = 0, n = 0;
-      for (var i = 0; i < d.length; i += 4) {
-        sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
-        n++;
-      }
-      return n ? (sum / n) / 255 : 0.5;
-    } catch (e) { return 0.5; }
-  }
-
-  function activeIndex() {
-    var btns = Array.prototype.slice.call(pager.children);
-    for (var i = 0; i < btns.length; i++) {
-      if (btns[i].classList.contains('is-active')) return i;
-    }
-    return 0;
-  }
+  if (!pager) return;
+  var btns = Array.prototype.slice.call(pager.querySelectorAll('button'));
+  if (!btns.length) return;
 
   function apply() {
-    var img = slides[Math.min(activeIndex(), slides.length - 1)];
-    if (!img) return;
-    var L = luminance(img);
-    var light = L < 0.45;                       // тёмное фото → светлая навигация
-    pager.classList.toggle('is-light', light);
-    pager.classList.toggle('is-dark', !light);
-    pager.setAttribute('data-lum', L.toFixed(2));
+    var active = btns.filter(function (b) { return b.classList.contains('is-active'); })[0] || btns[0];
+    var tone = active.getAttribute('data-tone') || 'dark';
+    pager.classList.toggle('is-light', tone === 'light');
+    pager.classList.toggle('is-dark', tone !== 'light');
   }
 
-  function ready() {
-    if (slides.every(function (i) { return i.complete && i.naturalWidth; })) apply();
-    else slides.forEach(function (i) { i.addEventListener('load', apply, { once: true }); });
-  }
-
-  ready();
-  pager.addEventListener('click', function () { setTimeout(apply, 60); });
-  shot.addEventListener('scroll', function () { requestAnimationFrame(apply); }, { passive: true });
+  apply();
+  pager.addEventListener('click', function () { setTimeout(apply, 30); });
   if (window.MutationObserver) {
-    new MutationObserver(apply).observe(pager, { attributes: true, subtree: true,
-      attributeFilter: ['class'] });
+    new MutationObserver(apply).observe(pager, { attributes: true, subtree: true, attributeFilter: ['class'] });
   }
-  window.addEventListener('resize', apply);
 })();
 </script>
 
