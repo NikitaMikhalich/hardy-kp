@@ -33,16 +33,16 @@ img{display:block}
 .head{position:relative;height:6.125rem;border-bottom:var(--line)}
 .head .logo{position:absolute;left:2rem;top:1.1875rem;width:3.4634rem;height:3.5591rem}
 .head h1{position:absolute;left:6.625rem;top:1.1875rem;width:14.125rem;margin:0;
-         font-size:1.5rem;line-height:1.8125rem;letter-spacing:.12rem;font-weight:500;font-style:normal}
+         font-size:1.5rem;line-height:0.5rem;letter-spacing:.12rem;font-weight:500;font-style:normal}
 
 /* ---------- редакционные блоки ---------- */
-.intro{margin:2.125rem 1.8125rem 0 2.125rem;min-height:11.3125rem;font-size:1.5rem;line-height:1.8125rem}
+.intro{margin:2.125rem 0.5rem 0 0.5rem;min-height:11.3125rem;font-size:1.5rem;line-height:0.5rem}
 .intro p{margin:0}
 /* в макете крупный дисплейный шрифт выше и шире: поднимаем кегль, чтобы совпала
    оптическая высота прописных (34–35px) при неизменном межстрочном 29px */
-.disp{font-style:italic;font-weight:800;font-size:2.875rem;line-height:1.8125rem}
-.task{margin:3.8125rem 0 0;height:1.8125rem;text-align:center}
-.bla{margin:1.3125rem 1.8125rem 0 2.125rem;min-height:4.5625rem;font-size:1.5rem;line-height:1.8125rem}
+.disp{font-style:italic;font-weight:800;font-size:2.875rem;line-height:0.5rem}
+.task{margin:3.8125rem 0 0;height:0.5rem;text-align:center}
+.bla{margin:1.3125rem 0.5rem 0 0.5rem;min-height:4.5625rem;font-size:1.5rem;line-height:0.5rem}
 .num{position:relative;height:5.9375rem;margin:4.125rem 0 0}
 .ring{position:absolute;left:50%;top:-.125rem;margin-left:-2.875rem;width:5.75rem;height:5.75rem;
       border:.5rem solid var(--ink);border-radius:50%;display:grid;place-items:center}
@@ -74,7 +74,7 @@ img{display:block}
 .pager button:focus-visible{outline:2px solid var(--ink);outline-offset:.1875rem}
 @media (prefers-reduced-motion:reduce){.shot.is-js .track{transition:none}.pager button{transition:none}}
 
-.composition{margin:2.875rem 0 0;height:1.8125rem;text-align:center}
+.composition{margin:2.875rem 0 0;height:0.5rem;text-align:center}
 
 /* ---------- карточки состава ---------- */
 .card{position:relative;height:16.3125rem;border:3px solid var(--ink)}
@@ -120,8 +120,8 @@ img{display:block}
 .c4-spec{left:13.25rem;top:7.4375rem;width:10.1875rem}
 
 /* ---------- итог и метки ---------- */
-.total{margin:.75rem 1.8125rem 0 2.1875rem;height:1.75rem;font-size:.875rem;line-height:1.75rem}
-.note{margin:1.6875rem 1.8125rem 0 2.1875rem;min-height:4.9375rem;font-size:1.5rem;line-height:1.8125rem}
+.total{margin:.75rem 0.5rem 0 2.1875rem;height:1.75rem;font-size:.875rem;line-height:1.75rem}
+.note{margin:1.6875rem 0.5rem 0 2.1875rem;min-height:4.9375rem;font-size:1.5rem;line-height:0.5rem}
 .marks{position:relative;height:6rem}
 .marks .bar{position:absolute;left:2.9375rem;top:0;width:4.396rem;height:5.1rem;display:grid;place-items:center}
 .marks .bar i{display:block;width:.9375rem;height:5.8125rem;background:var(--ink);transform:rotate(39.15deg)}
@@ -151,8 +151,8 @@ html.js .model.playing .loop-img{display:none}
 .model .play svg{width:2rem;height:2.2rem;margin-left:.3rem}
 
 /* ---------- обратная связь: комментарии к луку и пример формы ---------- */
-.talk,.send{margin:2.5rem 1.8125rem 0 2.1875rem}
-.talk h2,.send h2{margin:0 0 .5rem;font-size:1.5rem;line-height:1.8125rem;text-align:left}
+.talk,.send{margin:2.5rem 0.5rem 0 2.1875rem}
+.talk h2,.send h2{margin:0 0 .5rem;font-size:1.5rem;line-height:0.5rem;text-align:left}
 .talk-hint,.send-hint{margin:0 0 1.1rem;font-size:.9375rem;line-height:1.3125rem}
 .field{width:100%;margin:0 0 .625rem;padding:.625rem .6875rem;border:1px solid var(--ink);border-radius:0;
        background:var(--paper);color:var(--ink);font:italic 450 1rem/1.25rem var(--fam)}
@@ -170,7 +170,7 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .send-file{width:100%;margin:0 0 .625rem;font-size:.875rem}
 
 /* ---------- заглушки макета ---------- */
-.stub{margin:0 1.8125rem 0 2.125rem;font-size:1.5rem;line-height:1.8125rem}
+.stub{margin:0 0.5rem 0 0.5rem;font-size:1.5rem;line-height:0.5rem}
 .stub p{margin:0}
 .stub-1{margin-top:3.4375rem;min-height:4.0625rem}
 .stub-2{margin-top:18.625rem;min-height:4.5625rem}
@@ -196,7 +196,7 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .pager.nav-tone button{background:rgba(127,127,127,.45)}
 
 /* ——— таблица расчёта ——— */
-.calc{margin:2.875rem 1.8125rem 0 2.125rem}
+.calc{margin:2.875rem 0.5rem 0 0.5rem}
 .price-table{width:100%;border-collapse:collapse;margin-top:1.125rem;font-style:normal}
 .price-table th{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);
   text-align:left;padding:0 0 .5rem;border-bottom:1px solid var(--ink);font-weight:500}
@@ -207,13 +207,13 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.75rem;font-weight:500}
 .calc .note{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
 /* ——— подвал ——— */
-.foot{margin-top:3.25rem;border-top:1px solid var(--ink);padding:1.5rem 1.8125rem 3rem 2.125rem}
+.foot{margin-top:3.25rem;border-top:1px solid var(--ink);padding:1.5rem 0.5rem 3rem 0.5rem}
 .foot-inner p{font-size:.8125rem;line-height:1.5;color:var(--ink);margin-bottom:.5rem}
 .foot-brand{font-size:.9375rem;letter-spacing:.02em}
 .foot-small{color:var(--grey)}
 
 /* ——— таблицы расчёта: компактные, без лишней высоты ——— */
-.calc{margin:1.125rem 1.8125rem 0 2.125rem}
+.calc{margin:1.125rem 0.5rem 0 0.5rem}
 .calc.summary{margin-top:2.25rem}
 .price-table{width:100%;border-collapse:collapse;font-style:normal;line-height:1.2}
 .price-table th{font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
@@ -233,9 +233,9 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .calc .price-table tr,.calc .price-table tbody,.calc .price-table thead,.calc .price-table tfoot{height:auto}
 
 /* ——— единый вид таблиц: одна ширина, небольшие поля, высота строк 40px, мелкие заголовки ——— */
-section.stub{margin-left:1rem !important;margin-right:1rem !important}
+section.stub{margin-left:0.5rem !important;margin-right:0.5rem !important}
 section.stub .calc{margin-left:0 !important;margin-right:0 !important}
-main.page .calc{margin-left:1rem !important;margin-right:1rem !important}
+main.page .calc{margin-left:0.5rem !important;margin-right:0.5rem !important}
 .calc .price-table{width:100% !important;table-layout:auto}
 .calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
   font-size:.8125rem !important;line-height:1.15 !important}
@@ -246,13 +246,13 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important}
 .calc.summary{margin-top:2rem !important}
 
 /* ——— выравнивание таблиц: одинаковые поля, одинаковая ширина ——— */
-section.stub{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+section.stub{margin-left:0.5rem !important;margin-right:0.5rem !important;padding:0 !important}
 section.stub .calc{margin:0 !important;padding:0 !important}
-main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+main.page .calc{margin-left:0.5rem !important;margin-right:0.5rem !important;padding:0 !important}
 .calc .price-table{width:100% !important;min-width:100% !important;box-sizing:border-box}
 
 /* одинаковая ширина обеих таблиц: полотно минус поля по 2rem с каждой стороны */
-.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table{width:calc(100vw - 1rem) !important;min-width:0 !important;max-width:none !important}
 </style>
 </head>
 <body>
@@ -722,7 +722,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 
 <style>
 /* ===== финальные правила: таблицы и их заголовки (стоят последними, поэтому главнее ===== */
-.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table{width:calc(100vw - 1rem) !important;min-width:0 !important;max-width:none !important}
 .calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
   font-size:.8125rem !important;line-height:1.15 !important}
 .calc .price-table th{padding:0 0 .3125rem !important;font-size:.625rem !important}
@@ -730,9 +730,9 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 .calc-title,.calc .composition,h2.composition.calc-title{font-size:1.125rem !important;line-height:1.15 !important;
   margin:0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important;
   letter-spacing:0 !important}
-main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+main.page .calc{margin-left:0.5rem !important;margin-right:0.5rem !important;padding:0 !important}
 section.stub .calc,section.stub{margin:0 !important;padding:0 !important}
-section.stub{margin-left:1rem !important;margin-right:1rem !important}
+section.stub{margin-left:0.5rem !important;margin-right:0.5rem !important}
 </style>
 </body>
 </html>
