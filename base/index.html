@@ -282,10 +282,21 @@ textarea.field{min-height:5.5rem;resize:vertical}
 
   </div>
 
-  <p class="total">Общая стоимость лука:  12 500 руб.</p>
-  <p class="note">Можно добавить ремувку, брелок или ключницу...</p>
+<div class="marks" aria-hidden="true">
+    <span class="bar"><i></i></span>
+    <span class="star"><img src="assets/star.svg" alt=""></span>
+    <span class="tri"><img src="assets/polygon.svg" alt=""></span>
+  </div>
 
-  
+  <figure class="model" id="look-video">
+    <img class="loop-img" src="assets/look-loop.webp" alt="Анимация: комплект лука ОФИЦИАНТ">
+    <video class="loop" src="assets/look-loop.mp4" poster="assets/look-loop-poster.webp"
+           autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture controls
+           aria-label="Видео: комплект лука ОФИЦИАНТ в движении"></video>
+    <button class="play" type="button" aria-label="Воспроизвести видео">
+      <span class="tri"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0l20 11L0 22z" fill="currentColor"/></svg></span>
+    </button>
+  </figure>
   <section class="calc">
     <h2 class="disp composition" style="cursor:default">Расчёт на ваш парк</h2>
     <table class="price-table">
@@ -305,24 +316,10 @@ textarea.field{min-height:5.5rem;resize:vertical}
       </tfoot>
     </table>
     <p class="note">Цены предварительные: финальная смета — после утверждения состава и знака.
-      Нанесение знака включено. Повторный заказ к сезону — со скидкой.</p>
+      Нанесение знака включено. Можно добавить ремувку, брелок или ключницу. Повторный заказ к сезону — со скидкой.</p>
   </section>
 
-  <div class="marks" aria-hidden="true">
-    <span class="bar"><i></i></span>
-    <span class="star"><img src="assets/star.svg" alt=""></span>
-    <span class="tri"><img src="assets/polygon.svg" alt=""></span>
-  </div>
-
-  <figure class="model" id="look-video">
-    <img class="loop-img" src="assets/look-loop.webp" alt="Анимация: комплект лука ОФИЦИАНТ">
-    <video class="loop" src="assets/look-loop.mp4" poster="assets/look-loop-poster.webp"
-           autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture controls
-           aria-label="Видео: комплект лука ОФИЦИАНТ в движении"></video>
-    <button class="play" type="button" aria-label="Воспроизвести видео">
-      <span class="tri"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0l20 11L0 22z" fill="currentColor"/></svg></span>
-    </button>
-  </figure>
+  
 
 <section class="stub stub-1"><p>Таблица с рассчетом</p></section>
   <section class="stub stub-2"><p>Подвал</p></section>
