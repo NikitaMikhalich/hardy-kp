@@ -587,7 +587,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
     <div class="discounts" data-discounts data-offer-ts="2026-09-13T00:42:28" data-offer-date="2026-09-13">
       <h3 class="calc-title disp composition" style="cursor:default">Скидки</h3>
       <div class="chips"><div class="chip" data-disc="speed" data-pct="5"><span class="chip-txt">5% за скорость</span><button type="button" class="q" aria-label="пояснение" data-help="Действует 2 дня с даты отправки предложения: успеваете оплатить — скидка идёт на весь заказ.">?</button></div><div class="chip" data-disc="tirag" data-pct="10"><span class="chip-txt">10% на тираж</span><button type="button" class="q" aria-label="пояснение" data-help="Включается, когда всего в заказе 20 комплектов и больше.">?</button></div><div class="chip" data-disc="fullset" data-pct="5"><span class="chip-txt">5% за парк</span><button type="button" class="q" aria-label="пояснение" data-help="Даём, когда в заказ входят все три лука: официант, бармен и админ.">?</button></div><div class="chip manual" data-disc="repeat" data-pct="7"><span class="chip-txt">7% повтор</span><button type="button" class="q" aria-label="пояснение" data-help="Для тех, кто возвращается к обновлению коллекции. Включает менеджер.">?</button></div></div></div>
-    <div class="total-block"><span class="tb-label">Итого</span><span class="tb-sets" data-sets>8</span><span class="tb-price" data-grand>100 000 ₽</span><span class="tb-disc" hidden><span class="tb-dlabel">с учётом скидок</span><span class="tb-dprice" data-grand-disc></span></span></div>
+    <div class="total-block"><span class="tb-label">Итого</span><span class="tb-sets" data-sets>8</span><span class="tb-price" data-grand>100 000 ₽</span><span class="tb-disc" style="display:none"><span class="tb-dlabel">с учётом скидок</span><span class="tb-dprice" data-grand-disc></span></span></div>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
       после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
   </section>
@@ -793,6 +793,39 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
       sets += qty; grand += s;
     });
     summary.querySelector('[data-sets]').textContent = sets;
+
+    // --- скидки считаем в том же проходе: один источник правды ---
+    const dbox = document.querySelector('[data-discounts]');
+    const tb = document.querySelector('.total-block');
+    if (dbox && tb) {
+      const offerEnd = new Date(new Date(dbox.dataset.offerTs || Date.now()).getTime() + 72 * 3600 * 1000);
+      const qtyVals = [...summary.querySelectorAll('[data-qty]')].map(s => Number(s.textContent));
+      const on = {
+        speed: new Date() <= offerEnd,
+        tirag: sets >= 20,
+        fullset: qtyVals.length === 3 && qtyVals.every(q => q > 0),
+        repeat: !!(dbox.querySelector('[data-disc="repeat"]') || {}).classList && dbox.querySelector('[data-disc="repeat"]').classList.contains('on')
+      };
+      let pct = 0;
+      dbox.querySelectorAll('.chip').forEach(c => {
+        const a = !!on[c.dataset.disc];
+        c.classList.toggle('on', a);
+        if (a) pct += Number(c.dataset.pct);
+      });
+      const price = tb.querySelector('.tb-price');
+      const discRow = tb.querySelector('.tb-disc');
+      const dprice = tb.querySelector('.tb-dprice');
+      if (price) price.innerHTML = pct ? '<s>' + fmt(grand) + '</s>' : fmt(grand);
+      if (discRow && dprice) {
+        if (pct) {
+          dprice.textContent = fmt(Math.round(grand * (100 - pct) / 100));
+          discRow.removeAttribute('hidden');
+          discRow.style.display = 'flex';
+        } else {
+          discRow.style.display = 'none';
+        }
+      }
+    }
     const gc = summary.querySelector('[data-grand]'); gc.dataset.base = grand; gc.textContent = fmt(grand);
   }
 
@@ -1082,19 +1115,27 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 .calc.summary tfoot td[data-sets]{text-align:center !important}
 </style>
 
+
+
 <style>
-/* итог отдельным блоком: та же сетка, что у таблицы, поэтому цифры встают по колонкам */
-.total-block{display:grid;grid-template-columns:44% 18% 19% 19%;align-items:baseline;
-  margin-top:.5rem}
-.total-block .tb-label{grid-column:1;font-size:.8125rem;font-weight:500;color:var(--ink)}
-.total-block .tb-sets{grid-column:2;text-align:center;font-size:.8125rem;font-variant-numeric:tabular-nums}
-.total-block .tb-price{grid-column:4;text-align:right;font-size:.8125rem;font-weight:700;color:var(--ink)}
-.total-block .tb-price s{color:#8a8a8a;text-decoration:line-through;font-weight:700}
-.total-block .tb-disc{grid-column:1 / -1;display:flex;justify-content:space-between;
-  align-items:baseline;margin-top:.25rem}
-.total-block .tb-disc[hidden]{display:none}
+/* строка итога: простой флекс, без сетки — ничего не уезжает */
+.total-block{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:.5rem;margin:.5rem 1.8125rem 0 2.125rem}
+.total-block .tb-label{font-style:normal;font-weight:500;font-size:.875rem;color:var(--ink)}
+.total-block .tb-sets{font-style:normal;font-size:.875rem;font-variant-numeric:tabular-nums;
+  flex:1 1 auto;text-align:center}
+.total-block .tb-price{font-style:normal;font-weight:700;font-size:.9375rem;color:var(--ink)}
+.total-block .tb-price s{color:#8a8a8a;text-decoration:line-through}
+.total-block .tb-disc{flex:0 0 100%;display:flex;justify-content:space-between;align-items:baseline;
+  margin-top:.25rem}
+.total-block .tb-disc[hidden]{display:none !important}
 .total-block .tb-dlabel{font-size:.75rem;font-style:italic;color:#8a8a8a}
-.total-block .tb-dprice{font-size:.8125rem;font-weight:700;color:#121212}
+.total-block .tb-dprice{font-size:.9375rem;font-weight:700;color:#121212}
+</style>
+
+<style>
+/* фон строки итога — прозрачный, ничего не подсвечиваем */
+.total-block{background:transparent !important;border:0 !important}
 </style>
 </body>
 </html>
