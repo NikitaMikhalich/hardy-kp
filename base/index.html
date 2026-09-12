@@ -904,9 +904,7 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     if (e.target.closest('[data-step]')) setTimeout(update, 0);
   });
   document.addEventListener('change', e => { if (e.target.matches('[data-pick]')) setTimeout(update, 0); });
-  const obs = new MutationObserver(() => update());
-  const sum = document.querySelector('.calc.summary');
-  obs.observe(sum, {childList: true, subtree: true, characterData: true});
+  // пересчёт вызываем только по действиям пользователя: слежение за DOM давало бесконечный цикл
   update();
 })();
 </script>
