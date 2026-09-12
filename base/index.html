@@ -343,14 +343,14 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 <section class="stub stub-1">  <h2 class="calc-title disp composition" style="cursor:default">Расчёт по луку</h2>
   <div class="calc">
     <table class="price-table">
-      <thead><tr><th>Изделие</th><th class="num">Стоимость</th></tr></thead>
+      <thead><tr><th class="chk"></th><th>Изделие</th><th class="num">Стоимость</th></tr></thead>
       <tbody>
-        <tr><td>Шапка-докерка</td><td class="num">2 000 ₽</td></tr>
-        <tr><td>Футболка оверсайз</td><td class="num">3 500 ₽</td></tr>
-        <tr><td>Фартук-пояс</td><td class="num">3 000 ₽</td></tr>
-        <tr><td>Брюки рабочие</td><td class="num">4 000 ₽</td></tr>
+        <tr data-price="2000"><td class="chk"><label class="pick"><input type="checkbox" checked data-pick></label></td><td>Шапка-докерка</td><td class="num">2 000 ₽</td></tr>
+        <tr data-price="3500"><td class="chk"><label class="pick"><input type="checkbox" checked data-pick></label></td><td>Футболка оверсайз</td><td class="num">3 500 ₽</td></tr>
+        <tr data-price="3000"><td class="chk"><label class="pick"><input type="checkbox" checked data-pick></label></td><td>Фартук-пояс</td><td class="num">3 000 ₽</td></tr>
+        <tr data-price="4000"><td class="chk"><label class="pick"><input type="checkbox" checked data-pick></label></td><td>Брюки рабочие</td><td class="num">4 000 ₽</td></tr>
       </tbody>
-      <tfoot><tr><td>Итого за лук</td><td class="num strong">12 500 ₽</td></tr></tfoot>
+      <tfoot><tr><td class="chk"></td><td>Итого за лук</td><td class="num strong" data-look-total>12 500 ₽</td></tr></tfoot>
     </table>
   </div><script>
 /* Видео лука: играет сразу и по кругу.
@@ -578,11 +578,11 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
     <table class="price-table">
       <thead><tr><th>Лук</th><th class="num">Кол-во</th><th class="num">Цена лука</th><th class="num">Сумма</th></tr></thead>
       <tbody>
-        <tr><td>Лук 1 · Официант</td><td class="num">4</td><td class="num">12 500 ₽</td><td class="num">50 000 ₽</td></tr>
-        <tr><td>Лук 2 · Бармен</td><td class="num">2</td><td class="num">12 500 ₽</td><td class="num">25 000 ₽</td></tr>
-        <tr><td>Лук 3 · Админ</td><td class="num">2</td><td class="num">12 500 ₽</td><td class="num">25 000 ₽</td></tr>
+        <tr data-sync-look data-price="12500"><td>Лук 1 · Официант</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>4</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>50 000 ₽</td></tr>
+        <tr data-price="12500"><td>Лук 2 · Бармен</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
+        <tr data-price="12500"><td>Лук 3 · Админ</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
       </tbody>
-      <tfoot><tr><td>Итого</td><td class="num">8</td><td></td><td class="num strong">100 000 ₽</td></tr></tfoot>
+      <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr></tfoot>
     </table>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
       после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
@@ -734,5 +734,86 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 section.stub .calc,section.stub{margin:0 !important;padding:0 !important}
 section.stub{margin-left:1rem !important;margin-right:1rem !important}
 </style>
+
+<style>
+/* ===== интерактив: галочки и количество ===== */
+.calc .price-table td.chk,.calc .price-table th.chk{width:2rem;padding-right:.5rem}
+.pick{display:inline-flex;align-items:center;justify-content:center;width:1.125rem;height:1.125rem;
+  border:1px solid var(--ink);cursor:pointer;flex:none}
+.pick input{appearance:none;-webkit-appearance:none;width:100%;height:100%;margin:0;cursor:pointer;
+  background:transparent;position:relative}
+.pick input:checked{background:var(--ink)}
+.pick input:checked::after{content:'';position:absolute;left:.28rem;top:.08rem;width:.28rem;height:.6rem;
+  border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(40deg)}
+tr[data-price].off td{opacity:.35}
+tr[data-price].off td:nth-child(2){text-decoration:line-through}
+.stepper{display:inline-flex;align-items:center;gap:.5rem}
+.stepper button{width:1.25rem;height:1.25rem;border:0;background:transparent;color:inherit;
+  font-size:1.0625rem;line-height:1;cursor:pointer;padding:0;font-family:inherit}
+.stepper button:active{opacity:.5}
+.stepper span{min-width:1rem;display:inline-block;text-align:center;font-variant-numeric:tabular-nums}
+</style>
+
+<script>
+/* Живой пересчёт КП: снятые позиции выпадают из лука, количество комплектов меняется по шагам. */
+(() => {
+  const fmt = n => n.toLocaleString('ru-RU').replace(/\u00A0/g, ' ') + ' ₽';
+  const look = document.querySelector('.calc:not(.summary)');
+  const summary = document.querySelector('.calc.summary');
+  if (!look || !summary) return;
+  const rows = [...look.querySelectorAll('tr[data-price]')];
+
+  const load = () => { try { return JSON.parse(localStorage.getItem('kp-picks') || '{}'); } catch (e) { return {}; } };
+  const save = o => { try { localStorage.setItem('kp-picks', JSON.stringify(o)); } catch (e) {} };
+
+  function lookTotal() {
+    let sum = 0;
+    rows.forEach(r => {
+      const on = r.querySelector('[data-pick]').checked;
+      r.classList.toggle('off', !on);
+      if (on) sum += Number(r.dataset.price || 0);
+    });
+    look.querySelector('[data-look-total]').textContent = fmt(sum);
+    return sum;
+  }
+
+  function summaryTotal() {
+    let sets = 0, grand = 0;
+    const price = lookTotal();
+    summary.querySelectorAll('tbody tr[data-price]').forEach(r => {
+      const qty = Number(r.querySelector('[data-qty]').textContent);
+      const p = r.hasAttribute('data-sync-look') ? price : Number(r.dataset.price);
+      if (r.hasAttribute('data-sync-look')) r.querySelector('[data-price-cell]').textContent = fmt(p);
+      const s = qty * p;
+      r.querySelector('[data-sum]').textContent = fmt(s);
+      sets += qty; grand += s;
+    });
+    summary.querySelector('[data-sets]').textContent = sets;
+    summary.querySelector('[data-grand]').textContent = fmt(grand);
+  }
+
+  // восстановление выбора
+  const saved = load();
+  rows.forEach(r => {
+    const cb = r.querySelector('[data-pick]');
+    const name = r.querySelectorAll('td')[1].textContent.trim();
+    if (name in saved) cb.checked = !!saved[name];
+    cb.addEventListener('change', () => {
+      saved[name] = cb.checked; save(saved); summaryTotal();
+    });
+  });
+
+  summary.addEventListener('click', e => {
+    const b = e.target.closest('button[data-step]');
+    if (!b) return;
+    const cell = b.closest('td').querySelector('[data-qty]');
+    const next = Math.max(0, Number(cell.textContent) + Number(b.dataset.step));
+    cell.textContent = next;
+    summaryTotal();
+  });
+
+  summaryTotal();
+})();
+</script>
 </body>
 </html>
