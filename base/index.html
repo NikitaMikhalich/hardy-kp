@@ -885,17 +885,19 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     const cell = document.querySelector('[data-grand]');
     const line = document.querySelector('[data-grand-disc]');
     const base = Number((cell.dataset.base || '').replace(/[^0-9]/g, '')) || st.grand;
-    cell.textContent = fmt(base);
     if (line) {
       const tr = line.closest('tr');
       if (!pct) {
+        cell.textContent = fmt(base);
         tr.classList.remove('on');
       } else {
         const pay = Math.round(base * (100 - pct) / 100);
-        line.innerHTML = '<span class="dl-label">с учётом скидок</span><s>' + fmt(base) +
-          '</s><b>' + fmt(pay) + '</b>';
+        cell.innerHTML = '<s>' + fmt(base) + '</s>';
+        line.innerHTML = '<span class="dl-label">с учётом скидок</span><b>' + fmt(pay) + '</b>';
         tr.classList.add('on');
       }
+    } else {
+      cell.textContent = fmt(base);
     }
   }
 
@@ -1046,6 +1048,19 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 .disc-line .dl-label{display:block;text-align:right;font-size:.75rem;font-style:italic;color:var(--grey)}
 .disc-line s{display:block;text-align:right;font-size:.8125rem;color:var(--grey);opacity:.8}
 .disc-line b{display:block;text-align:right;font-size:1.0625rem;font-weight:700}
+</style>
+
+<style>
+/* без полосы над итогом в сводной */
+.calc.summary tfoot td{border-top:0 !important}
+</style>
+
+<style>
+/* итог: базовая цена серая и зачёркнутая, со скидкой — таким же размером, чёрная */
+[data-grand] s{color:#8a8a8a;text-decoration:line-through;font-weight:700}
+.disc-line .dl-label{display:block;text-align:right;font-size:.75rem;font-style:italic;color:#8a8a8a}
+.disc-line b{display:block;text-align:right;font-size:1.0625rem;font-weight:700;color:var(--ink)}
+.disc-line s{display:none}
 </style>
 </body>
 </html>
