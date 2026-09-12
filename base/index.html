@@ -193,6 +193,23 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .pager.is-light button,.pager.is-light button.is-active{background:rgba(255,255,255,.62)}
 /* нейтральный тон до расчёта/если состояния нет */
 .pager.nav-tone button{background:rgba(127,127,127,.45)}
+
+/* ——— таблица расчёта ——— */
+.calc{margin:2.875rem 1.8125rem 0 2.125rem}
+.price-table{width:100%;border-collapse:collapse;margin-top:1.125rem;font-style:normal}
+.price-table th{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);
+  text-align:left;padding:0 0 .5rem;border-bottom:1px solid var(--ink);font-weight:500}
+.price-table td{padding:.625rem 0;border-bottom:1px solid rgba(17,17,17,.14);font-size:.9375rem;vertical-align:top}
+.price-table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price-table td.strong{font-weight:700}
+.price-table .muted{display:block;color:var(--grey);font-size:.75rem;margin-top:.125rem}
+.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.75rem;font-weight:500}
+.calc .note{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
+/* ——— подвал ——— */
+.foot{margin-top:3.25rem;border-top:1px solid var(--ink);padding:1.5rem 1.8125rem 3rem 2.125rem}
+.foot-inner p{font-size:.8125rem;line-height:1.5;color:var(--ink);margin-bottom:.5rem}
+.foot-brand{font-size:.9375rem;letter-spacing:.02em}
+.foot-small{color:var(--grey)}
 </style>
 </head>
 <body>
@@ -268,6 +285,29 @@ textarea.field{min-height:5.5rem;resize:vertical}
   <p class="total">Общая стоимость лука:  12 500 руб.</p>
   <p class="note">Можно добавить ремувку, брелок или ключницу...</p>
 
+  
+  <section class="calc">
+    <h2 class="disp composition" style="cursor:default">Расчёт на ваш парк</h2>
+    <table class="price-table">
+      <thead>
+        <tr><th>Позиция</th><th>Цена</th><th>Кол-во</th><th>Сумма</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Лук бармена <span class="muted">футболка, фартук, брюки, шапка</span></td>
+            <td class="num">12 500 ₽</td><td class="num">2</td><td class="num">25 000 ₽</td></tr>
+        <tr><td>Лук админа <span class="muted">тот же состав</span></td>
+            <td class="num">12 500 ₽</td><td class="num">2</td><td class="num">25 000 ₽</td></tr>
+        <tr><td>Фартук-пояс <span class="muted">дополнительно к луку</span></td>
+            <td class="num">3 000 ₽</td><td class="num">4</td><td class="num">12 000 ₽</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Итого</td><td></td><td class="num">8</td><td class="num strong">62 000 ₽</td></tr>
+      </tfoot>
+    </table>
+    <p class="note">Цены предварительные: финальная смета — после утверждения состава и знака.
+      Нанесение знака включено. Повторный заказ к сезону — со скидкой.</p>
+  </section>
+
   <div class="marks" aria-hidden="true">
     <span class="bar"><i></i></span>
     <span class="star"><img src="assets/star.svg" alt=""></span>
@@ -284,20 +324,7 @@ textarea.field{min-height:5.5rem;resize:vertical}
     </button>
   </figure>
 
-  <section class="send" id="send">
-    <h2>Прислать свой пример</h2>
-    <p class="send-hint">Сфотографируйте форму, в которой работаете сейчас: скажем, что и как можно улучшить, и соберём предложение по вашему заведению.</p>
-    <form id="send-form" novalidate>
-      <input class="send-file" id="send-file" type="file" accept="image/*">
-      <input class="field" id="send-name" type="text" placeholder="Имя / название заведения">
-      <input class="field" id="send-contact" type="text" placeholder="Телефон или Telegram">
-      <textarea class="field" id="send-comment" placeholder="Что не устраивает в текущей форме?"></textarea>
-      <button class="btn" type="submit">Отправить пример</button>
-      <p class="status" id="send-status" role="status"></p>
-    </form>
-  </section>
-
-  <section class="stub stub-1"><p>Таблица с рассчетом</p></section>
+<section class="stub stub-1"><p>Таблица с рассчетом</p></section>
   <section class="stub stub-2"><p>Подвал</p></section>
   <div class="tail"></div>
 
@@ -640,6 +667,18 @@ textarea.field{min-height:5.5rem;resize:vertical}
   }
 })();
 </script>
+
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <p class="foot-brand">HARDY PENGUIN</p>
+      <p>Коммерческое предложение подготовлено персонально для команды One&nbsp;Way, Архангельск.</p>
+      <p>Комплектация и цены указаны предварительно, нанесение знака включено.
+         Обновление коллекции к сезону — со скидкой за повторный заказ.</p>
+      <p class="foot-small">Страница открывается по прямой ссылке, не индексируется поисковиками
+         и предназначена для внутреннего обсуждения.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
