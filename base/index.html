@@ -211,17 +211,17 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .foot-brand{font-size:.9375rem;letter-spacing:.02em}
 .foot-small{color:var(--grey)}
 
-/* ——— таблицы расчёта: под луком и сводная ——— */
-.calc{margin:1.5rem 1.8125rem 0 2.125rem}
-.calc.summary{margin-top:3rem}
-.price-table{width:100%;border-collapse:collapse;font-style:normal}
-.price-table th{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
-  text-align:left;padding:0 0 .4375rem;border-bottom:1px solid var(--ink);font-weight:500}
+/* ——— таблицы расчёта: компактные, без лишней высоты ——— */
+.calc{margin:1.125rem 1.8125rem 0 2.125rem}
+.calc.summary{margin-top:2.25rem}
+.price-table{width:100%;border-collapse:collapse;font-style:normal;line-height:1.2}
+.price-table th{font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  text-align:left;padding:0 0 .3125rem;border-bottom:1px solid var(--ink);font-weight:500}
 .price-table th.num,.price-table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.price-table td{padding:.5rem 0;border-bottom:1px solid rgba(17,17,17,.12);font-size:.875rem}
-.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.625rem;font-weight:500}
+.price-table td{padding:.3125rem 0;border-bottom:1px solid rgba(17,17,17,.12);font-size:.8125rem}
+.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.4375rem;font-weight:500}
 .price-table td.strong{font-weight:700}
-.calc .note{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
+.calc .note{margin-top:.625rem;font-size:.75rem;line-height:1.4;color:var(--grey)}
 </style>
 </head>
 <body>
@@ -312,14 +312,14 @@ textarea.field{min-height:5.5rem;resize:vertical}
 
   <div class="calc">
     <table class="price-table">
-      <thead><tr><th>Изделие</th><th class="num">Кол-во</th><th class="num">Стоимость</th></tr></thead>
+      <thead><tr><th>Изделие</th><th class="num">Стоимость</th></tr></thead>
       <tbody>
-        <tr><td>Шапка-докерка</td><td class="num">1</td><td class="num">2 000 ₽</td></tr>
-        <tr><td>Футболка оверсайз</td><td class="num">1</td><td class="num">3 500 ₽</td></tr>
-        <tr><td>Фартук-пояс</td><td class="num">1</td><td class="num">3 000 ₽</td></tr>
-        <tr><td>Брюки рабочие</td><td class="num">1</td><td class="num">4 000 ₽</td></tr>
+        <tr><td>Шапка-докерка</td><td class="num">2 000 ₽</td></tr>
+        <tr><td>Футболка оверсайз</td><td class="num">3 500 ₽</td></tr>
+        <tr><td>Фартук-пояс</td><td class="num">3 000 ₽</td></tr>
+        <tr><td>Брюки рабочие</td><td class="num">4 000 ₽</td></tr>
       </tbody>
-      <tfoot><tr><td>Итого за лук</td><td class="num">4</td><td class="num strong">12 500 ₽</td></tr></tfoot>
+      <tfoot><tr><td>Итого за лук</td><td class="num strong">12 500 ₽</td></tr></tfoot>
     </table>
   </div>
 
