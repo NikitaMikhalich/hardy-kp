@@ -576,7 +576,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
   <section class="calc summary">
     <h2 class="disp composition" style="cursor:default">Сводно по лукам</h2>
     <table class="price-table">
-      <thead><tr><th>Лук</th><th class="num">Комплектов</th><th class="num">Стоимость лука</th><th class="num">Сумма</th></tr></thead>
+      <thead><tr><th>Лук</th><th class="num">Кол-во</th><th class="num">Цена лука</th><th class="num">Сумма</th></tr></thead>
       <tbody>
         <tr><td>Лук 1 · Официант</td><td class="num">4</td><td class="num">12 500 ₽</td><td class="num">50 000 ₽</td></tr>
         <tr><td>Лук 2 · Бармен</td><td class="num">2</td><td class="num">12 500 ₽</td><td class="num">25 000 ₽</td></tr>
@@ -719,5 +719,20 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
   start();
 })();
 </script>
+
+<style>
+/* ===== финальные правила: таблицы и их заголовки (стоят последними, поэтому главнее ===== */
+.calc .price-table{width:calc(100vw - 4rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
+  font-size:.8125rem !important;line-height:1.15 !important}
+.calc .price-table th{padding:0 0 .3125rem !important;font-size:.625rem !important}
+.calc .price-table tfoot td{padding-top:.4375rem !important}
+.calc-title,.calc .composition,h2.composition.calc-title{font-size:1.125rem !important;line-height:1.15 !important;
+  margin:0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important;
+  letter-spacing:0 !important}
+main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+section.stub .calc,section.stub{margin:0 !important;padding:0 !important}
+section.stub{margin-left:1rem !important;margin-right:1rem !important}
+</style>
 </body>
 </html>
