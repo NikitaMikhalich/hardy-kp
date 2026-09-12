@@ -317,6 +317,7 @@ textarea.field{min-height:5.5rem;resize:vertical}
       <span class="tri"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0l20 11L0 22z" fill="currentColor"/></svg></span>
     </button>
   </figure>
+<section class="stub stub-1">  <h2 class="disp composition" style="cursor:default">Расчёт по луку</h2>
   <div class="calc">
     <table class="price-table">
       <thead><tr><th>Изделие</th><th class="num">Стоимость</th></tr></thead>
@@ -332,21 +333,7 @@ textarea.field{min-height:5.5rem;resize:vertical}
 
 
 
-<section class="stub stub-1"><p>Таблица с рассчетом</p></section>
-  <section class="stub stub-2"><p>Подвал</p></section>
-  <div class="tail"></div>
-
-</main>
-<script>
-/* Галерея-листалка кадров лука.
-   Палец — touch-события с захватом оси (вертикальный скролл страницы не ломаем),
-   мышь — pointer-события, кадр тянется за курсором. Плюс флик, точки, стрелки,
-   автопрокрутка. Без JS работает нативный скролл со снапом (см. CSS). */
-(() => {
-  const root = document.getElementById('look');
-  if (!root) return;
-  const track = root.querySelector('.track');
-  const slides = [...track.querySelectorAll('.slide')];
+l('.slide')];
   const dots = [...root.querySelectorAll('.pager button')];
   const N = slides.length;
   if (N < 2) return;
