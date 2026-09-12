@@ -184,13 +184,16 @@ textarea.field{min-height:5.5rem;resize:vertical}
 @media (prefers-reduced-motion:reduce){.look-body{transition:none}.composition .caret{transition:none}}
 
 
-/* ——— навигация галереи: тон по яркости кадра (рассчитан при сборке) ——— */
-.pager button{transition:background .4s cubic-bezier(.22,.61,.36,1),width .4s cubic-bezier(.22,.61,.36,1),box-shadow .4s ease}
-.pager.is-light button{background:rgba(255,255,255,.45)}
-.pager.is-light button.is-active{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
-.pager.is-dark button{background:rgba(17,17,17,.22)}
-.pager.is-dark button.is-active{background:rgba(17,17,17,.72)}
-.pager button:hover{background:rgba(127,127,127,.55)}
+/* ——— навигация галереи: тон по яркости кадра, мягкий диапазон ——— */
+.pager button{transition:background .45s cubic-bezier(.22,.61,.36,1),width .4s cubic-bezier(.22,.61,.36,1),box-shadow .45s ease}
+/* тёмное фото: точки тёмные, но не чёрные */
+.pager.is-dark button{background:rgba(24,24,24,.30)}
+.pager.is-dark button.is-active{background:rgba(24,24,24,.54)}
+/* светлое фото: точки светлые, но не белые */
+.pager.is-light button{background:rgba(255,255,255,.48)}
+.pager.is-light button.is-active{background:rgba(255,255,255,.72);box-shadow:0 0 0 1px rgba(0,0,0,.05)}
+.pager button:hover{background:rgba(127,127,127,.5)}
+.pager.nav-tone button{background:rgba(127,127,127,.4)}
 </style>
 </head>
 <body>
