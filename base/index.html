@@ -585,7 +585,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
       <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr></tfoot>
     </table>
 
-    <div class="discounts" data-discounts data-offer-date="2026-09-12">
+    <div class="discounts" data-discounts data-offer-ts="2026-09-13T00:42:28" data-offer-date="2026-09-13">
       <h3 class="calc-title disp composition" style="cursor:default">Скидки</h3>
       <div class="chips"><div class="chip" data-disc="speed" data-pct="5"><span class="chip-txt">5% за скорость</span><button type="button" class="q" aria-label="пояснение" data-help="Действует 2 дня с даты отправки предложения: успеваете оплатить — скидка идёт на весь заказ.">?</button></div><div class="chip" data-disc="tirag" data-pct="10"><span class="chip-txt">10% на тираж</span><button type="button" class="q" aria-label="пояснение" data-help="Включается, когда всего в заказе 20 комплектов и больше.">?</button></div><div class="chip" data-disc="fullset" data-pct="5"><span class="chip-txt">5% за парк</span><button type="button" class="q" aria-label="пояснение" data-help="Даём, когда в заказ входят все три лука: официант, бармен и админ.">?</button></div><div class="chip manual" data-disc="repeat" data-pct="7"><span class="chip-txt">7% повтор</span><button type="button" class="q" aria-label="пояснение" data-help="Для тех, кто возвращается к обновлению коллекции. Включает менеджер.">?</button></div></div></div>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
@@ -917,64 +917,109 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 [data-grand] b{font-weight:700}
 </style>
 
+
+
+
+
+
+
 <style>
-/* пилюля скидки по макету: мятная, курсив-капс, кружок с вопросом */
+/* ===== пилюли скидок и модальное окно пояснения ===== */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
 .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .625rem .5rem 1rem;
-  border-radius:999px;background:#efefef;color:#8a8a8a;cursor:default;
-  font-family:inherit;font-style:italic;font-weight:700;font-size:.9375rem;
-  text-transform:uppercase;letter-spacing:.01em;line-height:1;transition:background .25s,color .25s}
-.chip.on{background:var(--accent);color:#0f0f0f}
+  border-radius:999px;background:#efefef;color:#8a8a8a;cursor:default;font-family:inherit;
+  font-style:italic;font-weight:700;font-size:.9375rem;text-transform:uppercase;line-height:1;
+  transition:background .25s,color .25s}
+.chip.on{background:var(--accent,#7bf1c6);color:#0f0f0f}
 .chip.manual{cursor:pointer}
+.chip .chip-txt{text-transform:uppercase;font-style:italic;font-weight:700}
 .chip .q{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;border:2px solid currentColor;
   background:transparent;color:inherit;font-family:inherit;font-style:italic;font-weight:700;
-  font-size:.875rem;line-height:1;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;padding:0}
-.chip .q:active{opacity:.6}
-.help-pop{position:absolute;z-index:20;max-width:17rem;background:#fff;color:#121212;
-  border:1px solid #121212;padding:.625rem .75rem;font-size:.8125rem;font-style:normal;font-weight:400;
-  line-height:1.4;text-transform:none;letter-spacing:0;box-shadow:0 .5rem 1.5rem rgba(0,0,0,.12)}
-.help-pop[hidden]{display:none}
+  font-size:.875rem;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.pop-veil{position:fixed;inset:0;background:rgba(255,255,255,.66);z-index:40;
+  display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.pop-veil[hidden]{display:none}
+.pop-card{position:relative;width:100%;max-width:22rem;background:var(--accent,#7bf1c6);color:#0f0f0f;
+  border-radius:1.75rem;padding:2rem 1.5rem 1.75rem;text-align:center;font-style:italic;
+  box-shadow:0 1.5rem 3rem rgba(0,0,0,.18)}
+.pop-card .pct{font-size:4.25rem;font-weight:700;line-height:1;font-style:italic}
+.pop-card .txt{margin-top:1.25rem;font-size:1.0625rem;font-weight:700;line-height:1.35;font-style:italic}
+.pop-card .timer{margin-top:1.5rem;font-size:2.5rem;font-weight:700;letter-spacing:.02em;
+  font-variant-numeric:tabular-nums}
+.pop-card .status{margin-top:.5rem;font-size:.8125rem;font-style:italic;opacity:.85}
+.pop-card .close{position:absolute;top:1rem;right:1rem;background:none;border:0;cursor:pointer;
+  font-family:inherit;font-style:italic;font-size:.75rem;color:#0f0f0f;display:flex;
+  flex-direction:column;align-items:center;gap:.25rem}
+.pop-card .close i{width:2.75rem;height:2.75rem;border:2px solid #0f0f0f;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-style:normal}
 </style>
 
 <script>
-/* «?» в блочке скидки: всплывающее пояснение рядом с пилюлей */
+/* Модальное окно скидки: процент, пояснение, живой таймер 72 часа, статус, «Закрыть». */
 (() => {
-  const pop = document.createElement('div');
-  pop.className = 'help-pop';
-  pop.hidden = true;
-  document.body.appendChild(pop);
-  let cur = null;
-  document.addEventListener('click', e => {
-    const q = e.target.closest('.q');
-    if (q) {
-      if (cur === q && !pop.hidden) { pop.hidden = true; cur = null; return; }
-      const chip = q.closest('.chip');
-      pop.textContent = q.dataset.help || '';
-      pop.hidden = false;
-      const r = chip.getBoundingClientRect();
-      const top = window.scrollY + r.bottom + 8;
-      let left = window.scrollX + r.left;
-      const maxLeft = window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 12;
-      pop.style.top = top + 'px';
-      pop.style.left = Math.max(window.scrollX + 12, Math.min(left, maxLeft)) + 'px';
-      cur = q;
-      e.stopPropagation();
-      return;
+  const box = document.querySelector('[data-discounts]');
+  if (!box) return;
+  const veil = document.createElement('div');
+  veil.className = 'pop-veil';
+  veil.hidden = true;
+  veil.innerHTML = '<div class="pop-card"><button type="button" class="close"><i>✕</i>Закрыть</button>' +
+    '<div class="pct"></div><div class="txt"></div><div class="timer"></div><div class="status"></div></div>';
+  document.body.appendChild(veil);
+  const card = veil.querySelector('.pop-card');
+  const pctEl = card.querySelector('.pct'), txtEl = card.querySelector('.txt');
+  const timerEl = card.querySelector('.timer'), statusEl = card.querySelector('.status');
+  const HOURS = 72;
+  const start = new Date(box.dataset.offerTs || Date.now());
+  const end = new Date(start.getTime() + HOURS * 3600 * 1000);
+  const pad = n => String(n).padStart(2, '0');
+  let tick = null, current = null;
+
+  const INFO = {
+    speed:  { pct: '5%',  txt: 'Скидка актуальна в течение 72 часов после получения КП', timer: true },
+    tirag:  { pct: '10%', txt: 'Скидка актуальна при заказе от 20 комплектов', timer: false },
+    fullset:{ pct: '5%',  txt: 'Скидка актуальна, когда в заказе все три лука: официант, бармен, админ', timer: false },
+    repeat: { pct: '7%',  txt: 'Скидка для повторного заказа к новому сезону. Включает менеджер', timer: false },
+  };
+
+  function draw() {
+    if (!current) return;
+    const info = INFO[current] || { pct: '', txt: '', timer: false };
+    const left = Math.max(0, end - new Date());
+    pctEl.textContent = info.pct;
+    txtEl.textContent = info.txt;
+    if (info.timer) {
+      const h = Math.floor(left / 3600000);
+      timerEl.textContent = pad(h) + ':' + pad(Math.floor(left / 60000) % 60) + ':' + pad(Math.floor(left / 1000) % 60);
+      timerEl.style.display = '';
+      statusEl.textContent = 'Статус: ' + (left > 0 ? 'действительна' : 'истекла');
+    } else {
+      const chip = box.querySelector('[data-disc="' + current + '"]');
+      timerEl.textContent = '';
+      timerEl.style.display = 'none';
+      statusEl.textContent = 'Статус: ' + (chip && chip.classList.contains('on') ? 'действительна' : 'не активна');
     }
-    if (!e.target.closest('.help-pop')) { pop.hidden = true; cur = null; }
-  });
-  document.addEventListener('click', e => {
+  }
+
+  function open(key) {
+    current = key;
+    veil.hidden = false;
+    draw();
+    clearInterval(tick);
+    tick = setInterval(draw, 1000);
+  }
+  function close() { veil.hidden = true; clearInterval(tick); tick = null; current = null; }
+
+  box.addEventListener('click', e => {
+    const q = e.target.closest('.q');
+    if (q) { e.stopPropagation(); open(q.closest('.chip').dataset.disc); return; }
     const chip = e.target.closest('.chip.manual');
-    if (chip && !e.target.closest('.q')) chip.classList.toggle('on');
+    if (chip) { chip.classList.toggle('on'); document.dispatchEvent(new Event('kp-recalc')); }
   });
-  window.addEventListener('scroll', () => { pop.hidden = true; cur = null; });
+  veil.addEventListener('click', e => {
+    if (e.target.closest('.close') || e.target === veil) close();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
 </script>
-
-<style>
-/* капс и курсив для подписей в пилюлях — жёстко, чтобы ничто не перебивало */
-.chip,.chip .chip-txt{text-transform:uppercase !important;font-style:italic !important;
-  font-weight:700 !important;letter-spacing:.02em !important}
-</style>
 </body>
 </html>
