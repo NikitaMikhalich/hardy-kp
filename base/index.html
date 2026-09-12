@@ -222,6 +222,14 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.4375rem;font-weight:500}
 .price-table td.strong{font-weight:700}
 .calc .note{margin-top:.625rem;font-size:.75rem;line-height:1.4;color:var(--grey)}
+
+/* ——— таблицы: принудительно компактные строки ——— */
+.calc .price-table{line-height:1.1}
+.calc .price-table th,.calc .price-table td{line-height:1.1 !important;height:auto}
+.calc .price-table td{padding:.25rem 0 !important;font-size:.8125rem !important;vertical-align:baseline}
+.calc .price-table th{padding:0 0 .25rem !important;font-size:.625rem !important}
+.calc .price-table tfoot td{border-top:1px solid var(--ink);padding-top:.375rem !important;border-bottom:0}
+.calc .price-table tr,.calc .price-table tbody,.calc .price-table thead,.calc .price-table tfoot{height:auto}
 </style>
 </head>
 <body>
@@ -309,7 +317,6 @@ textarea.field{min-height:5.5rem;resize:vertical}
       <span class="tri"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0l20 11L0 22z" fill="currentColor"/></svg></span>
     </button>
   </figure>
-
   <div class="calc">
     <table class="price-table">
       <thead><tr><th>Изделие</th><th class="num">Стоимость</th></tr></thead>
@@ -322,6 +329,8 @@ textarea.field{min-height:5.5rem;resize:vertical}
       <tfoot><tr><td>Итого за лук</td><td class="num strong">12 500 ₽</td></tr></tfoot>
     </table>
   </div>
+
+
 
 <section class="stub stub-1"><p>Таблица с рассчетом</p></section>
   <section class="stub stub-2"><p>Подвал</p></section>
