@@ -210,6 +210,18 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .foot-inner p{font-size:.8125rem;line-height:1.5;color:var(--ink);margin-bottom:.5rem}
 .foot-brand{font-size:.9375rem;letter-spacing:.02em}
 .foot-small{color:var(--grey)}
+
+/* ——— таблицы расчёта: под луком и сводная ——— */
+.calc{margin:1.5rem 1.8125rem 0 2.125rem}
+.calc.summary{margin-top:3rem}
+.price-table{width:100%;border-collapse:collapse;font-style:normal}
+.price-table th{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
+  text-align:left;padding:0 0 .4375rem;border-bottom:1px solid var(--ink);font-weight:500}
+.price-table th.num,.price-table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price-table td{padding:.5rem 0;border-bottom:1px solid rgba(17,17,17,.12);font-size:.875rem}
+.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.625rem;font-weight:500}
+.price-table td.strong{font-weight:700}
+.calc .note{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
 </style>
 </head>
 <body>
@@ -297,29 +309,19 @@ textarea.field{min-height:5.5rem;resize:vertical}
       <span class="tri"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0l20 11L0 22z" fill="currentColor"/></svg></span>
     </button>
   </figure>
-  <section class="calc">
-    <h2 class="disp composition" style="cursor:default">Расчёт на ваш парк</h2>
-    <table class="price-table">
-      <thead>
-        <tr><th>Позиция</th><th>Цена</th><th>Кол-во</th><th>Сумма</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Лук бармена <span class="muted">футболка, фартук, брюки, шапка</span></td>
-            <td class="num">12 500 ₽</td><td class="num">2</td><td class="num">25 000 ₽</td></tr>
-        <tr><td>Лук админа <span class="muted">тот же состав</span></td>
-            <td class="num">12 500 ₽</td><td class="num">2</td><td class="num">25 000 ₽</td></tr>
-        <tr><td>Фартук-пояс <span class="muted">дополнительно к луку</span></td>
-            <td class="num">3 000 ₽</td><td class="num">4</td><td class="num">12 000 ₽</td></tr>
-      </tbody>
-      <tfoot>
-        <tr><td>Итого</td><td></td><td class="num">8</td><td class="num strong">62 000 ₽</td></tr>
-      </tfoot>
-    </table>
-    <p class="note">Цены предварительные: финальная смета — после утверждения состава и знака.
-      Нанесение знака включено. Можно добавить ремувку, брелок или ключницу. Повторный заказ к сезону — со скидкой.</p>
-  </section>
 
-  
+  <div class="calc">
+    <table class="price-table">
+      <thead><tr><th>Изделие</th><th class="num">Кол-во</th><th class="num">Стоимость</th></tr></thead>
+      <tbody>
+        <tr><td>Шапка-докерка</td><td class="num">1</td><td class="num">2 000 ₽</td></tr>
+        <tr><td>Футболка оверсайз</td><td class="num">1</td><td class="num">3 500 ₽</td></tr>
+        <tr><td>Фартук-пояс</td><td class="num">1</td><td class="num">3 000 ₽</td></tr>
+        <tr><td>Брюки рабочие</td><td class="num">1</td><td class="num">4 000 ₽</td></tr>
+      </tbody>
+      <tfoot><tr><td>Итого за лук</td><td class="num">4</td><td class="num strong">12 500 ₽</td></tr></tfoot>
+    </table>
+  </div>
 
 <section class="stub stub-1"><p>Таблица с рассчетом</p></section>
   <section class="stub stub-2"><p>Подвал</p></section>
@@ -666,7 +668,23 @@ textarea.field{min-height:5.5rem;resize:vertical}
 </script>
 
 
-  <footer class="foot">
+  
+  <section class="calc summary">
+    <h2 class="disp composition" style="cursor:default">Сводно по лукам</h2>
+    <table class="price-table">
+      <thead><tr><th>Лук</th><th class="num">Комплектов</th><th class="num">Стоимость лука</th><th class="num">Сумма</th></tr></thead>
+      <tbody>
+        <tr><td>Лук 1 · Официант</td><td class="num">4</td><td class="num">12 500 ₽</td><td class="num">50 000 ₽</td></tr>
+        <tr><td>Лук 2 · Бармен</td><td class="num">2</td><td class="num">12 500 ₽</td><td class="num">25 000 ₽</td></tr>
+        <tr><td>Лук 3 · Админ</td><td class="num">2</td><td class="num">12 500 ₽</td><td class="num">25 000 ₽</td></tr>
+      </tbody>
+      <tfoot><tr><td>Итого</td><td class="num">8</td><td></td><td class="num strong">100 000 ₽</td></tr></tfoot>
+    </table>
+    <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
+      после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
+  </section>
+
+<footer class="foot">
     <div class="foot-inner">
       <p class="foot-brand">HARDY PENGUIN</p>
       <p>Коммерческое предложение подготовлено персонально для команды One&nbsp;Way, Архангельск.</p>
