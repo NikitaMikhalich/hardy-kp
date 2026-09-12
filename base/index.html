@@ -582,7 +582,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
         <tr data-price="12500"><td>Бармен</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
         <tr data-price="12500"><td>Админ</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>2</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>25 000 ₽</td></tr>
       </tbody>
-      <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr></tfoot>
+      <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr><tr class="disc-line"><td colspan="3"></td><td class="num" data-grand-disc></td></tr></tfoot>
     </table>
 
     <div class="discounts" data-discounts data-offer-ts="2026-09-13T00:42:28" data-offer-date="2026-09-13">
@@ -883,12 +883,19 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
       if (active) { pct += Number(c.dataset.pct); on.push(c.textContent.split(' ')[0]); }
     });
     const cell = document.querySelector('[data-grand]');
+    const line = document.querySelector('[data-grand-disc]');
     const base = Number((cell.dataset.base || '').replace(/[^0-9]/g, '')) || st.grand;
-    if (!pct) {
-      cell.textContent = fmt(base);
-    } else {
-      const pay = Math.round(base * (100 - pct) / 100);
-      cell.innerHTML = '<s>' + fmt(base) + '</s><b>' + fmt(pay) + '</b>';
+    cell.textContent = fmt(base);
+    if (line) {
+      const tr = line.closest('tr');
+      if (!pct) {
+        tr.classList.remove('on');
+      } else {
+        const pay = Math.round(base * (100 - pct) / 100);
+        line.innerHTML = '<span class="dl-label">с учётом скидок</span><s>' + fmt(base) +
+          '</s><b>' + fmt(pay) + '</b>';
+        tr.classList.add('on');
+      }
     }
   }
 
@@ -1029,6 +1036,16 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 .pop-card.off{background:#efefef !important;color:#8a8a8a !important}
 .pop-card.off .close i{border-color:#8a8a8a !important}
 .pop-card.off .close{color:#8a8a8a !important}
+</style>
+
+<style>
+/* итог со скидками: базис на месте, ниже подпись, зачёркнутая цена и новая под ней */
+.disc-line{display:none}
+.disc-line.on{display:table-row}
+.disc-line td{border-bottom:0 !important;padding-top:.375rem !important}
+.disc-line .dl-label{display:block;text-align:right;font-size:.75rem;font-style:italic;color:var(--grey)}
+.disc-line s{display:block;text-align:right;font-size:.8125rem;color:var(--grey);opacity:.8}
+.disc-line b{display:block;text-align:right;font-size:1.0625rem;font-weight:700}
 </style>
 </body>
 </html>
