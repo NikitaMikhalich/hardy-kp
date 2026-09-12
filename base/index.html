@@ -970,5 +970,11 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   window.addEventListener('scroll', () => { pop.hidden = true; cur = null; });
 })();
 </script>
+
+<style>
+/* капс и курсив для подписей в пилюлях — жёстко, чтобы ничто не перебивало */
+.chip,.chip .chip-txt{text-transform:uppercase !important;font-style:italic !important;
+  font-weight:700 !important;letter-spacing:.02em !important}
+</style>
 </body>
 </html>
