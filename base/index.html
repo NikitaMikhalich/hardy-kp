@@ -588,12 +588,11 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
     <div class="discounts" data-discounts data-offer-date="2026-09-12">
       <h3 class="calc-title disp composition" style="cursor:default">Скидки</h3>
       <div class="chips">
-        <button type="button" class="chip" data-disc="speed" data-pct="5">+5% скорость оплаты<span>2 дня</span></button>
-        <button type="button" class="chip" data-disc="tirag" data-pct="10" data-min-sets="20">+10% на тираж<span>от 20 комплектов</span></button>
-        <button type="button" class="chip" data-disc="fullset" data-pct="5">+5% весь парк<span>все три лука</span></button>
-        <button type="button" class="chip manual" data-disc="repeat" data-pct="7">+7% повтор к сезону<span>по решению менеджера</span></button>
+        <button type="button" class="chip" data-disc="speed" data-pct="5">+5% скорость</button>
+        <button type="button" class="chip" data-disc="tirag" data-pct="10">+10% тираж</button>
+        <button type="button" class="chip" data-disc="fullset" data-pct="5">+5% парк</button>
+        <button type="button" class="chip manual" data-disc="repeat" data-pct="7">+7% повтор</button>
       </div>
-      <p class="disc-sum" data-disc-sum>Скидки зажгутся, когда условия выполнятся.</p>
     </div>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
       после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
@@ -800,7 +799,7 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
       sets += qty; grand += s;
     });
     summary.querySelector('[data-sets]').textContent = sets;
-    summary.querySelector('[data-grand]').textContent = fmt(grand);
+    const gc = summary.querySelector('[data-grand]'); gc.dataset.base = grand; gc.textContent = fmt(grand);
   }
 
   // восстановление выбора
@@ -867,8 +866,8 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     const summary = document.querySelector('.calc.summary');
     const sets = Number(summary.querySelector('[data-sets]').textContent);
     const qtys = [...summary.querySelectorAll('[data-qty]')].map(s => Number(s.textContent));
-    const grand = Number((summary.querySelector('[data-grand]').textContent || '')
-      .replace(/[^0-9]/g, ''));
+    const gcell = summary.querySelector('[data-grand]');
+    const grand = Number(String(gcell.dataset.base || gcell.textContent || '').replace(/[^0-9]/g, ''));
     const days = Math.floor((new Date() - offer) / 86400000);
     return {
       sets, grand,
@@ -889,14 +888,13 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
       c.classList.toggle('on', active);
       if (active) { pct += Number(c.dataset.pct); on.push(c.textContent.split(' ')[0]); }
     });
-    const sum = box.querySelector('[data-disc-sum]');
+    const cell = document.querySelector('[data-grand]');
+    const base = Number((cell.dataset.base || '').replace(/[^0-9]/g, '')) || st.grand;
     if (!pct) {
-      sum.innerHTML = 'Активных скидок нет — итог <b>' + fmt(st.grand) + '</b>. ' +
-        (st.sets < 20 ? 'Тиражная скидка зажжётся от 20 комплектов.' : '');
+      cell.textContent = fmt(base);
     } else {
-      const pay = Math.round(st.grand * (100 - pct) / 100);
-      sum.innerHTML = 'Скидки: <b>' + on.join(' + ') + '</b> — суммарно ' + pct + '%. ' +
-        'Итого со скидками: <b>' + fmt(pay) + '</b>, выгода <b>' + fmt(st.grand - pay) + '</b>.';
+      const pay = Math.round(base * (100 - pct) / 100);
+      cell.innerHTML = '<s>' + fmt(base) + '</s><b>' + fmt(pay) + '</b>';
     }
   }
 
@@ -913,6 +911,16 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 /* галочка без внешней рамки */
 .pick{border:0 !important;background:#ececec;border-radius:2px}
 .pick input:checked{background:var(--ink)}
+</style>
+
+<style>
+/* скидки: слова в строку, цена со скидкой рядом с зачёркнутой */
+.chips{gap:.375rem !important}
+.chip{padding:.375rem .75rem !important;font-size:.8125rem !important}
+.chip span{display:none !important}
+.chip.manual::after{content:'' !important}
+[data-grand] s{opacity:.45;font-weight:400;margin-right:.375rem}
+[data-grand] b{font-weight:700}
 </style>
 </body>
 </html>
