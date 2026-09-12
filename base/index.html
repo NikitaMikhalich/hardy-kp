@@ -984,6 +984,8 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   function draw() {
     if (!current) return;
     const info = INFO[current] || { pct: '', txt: '', timer: false };
+    const chipNow = box.querySelector('[data-disc="' + current + '"]');
+    card.classList.toggle('off', !(chipNow && chipNow.classList.contains('on')));
     const left = Math.max(0, end - new Date());
     pctEl.textContent = info.pct;
     txtEl.textContent = info.txt;
@@ -1021,5 +1023,12 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
 </script>
+
+<style>
+/* неактивная скидка: окно серое, как неактивные плашки (правило последнее — приоритет) */
+.pop-card.off{background:#efefef !important;color:#8a8a8a !important}
+.pop-card.off .close i{border-color:#8a8a8a !important}
+.pop-card.off .close{color:#8a8a8a !important}
+</style>
 </body>
 </html>
