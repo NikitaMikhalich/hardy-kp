@@ -25,33 +25,33 @@
    и перестаёт расти на 430px, чтобы композиция сохраняла пропорции. */
 html{font-size:calc(min(100vw, 430px) / 25.125);-webkit-text-size-adjust:100%}
 *{box-sizing:border-box}
-body{margin0;background:var(--paper);color:var(--ink);font-family:var(--fam);font-style:italic;font-weight:450;overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fam);font-style:italic;font-weight:450;overflow-x:hidden}
 img{display:block}
-.page{position:relative;width:min(100vw,430px);margin0 auto;background:var(--paper)}
+.page{position:relative;width:min(100vw,430px);margin:0 auto;background:var(--paper)}
 
 /* ---------- шапка ---------- */
 .head{position:relative;height:6.125rem;border-bottom:var(--line)}
 .head .logo{position:absolute;left:2rem;top:1.1875rem;width:3.4634rem;height:3.5591rem}
-.head h1{position:absolute;left:6.625rem;top:1.1875rem;width:14.125rem;margin0;
-         font-size:1.5rem;line-height:0.5rem;letter-spacing:.12rem;font-weight:500;font-style:normal}
+.head h1{position:absolute;left:6.625rem;top:1.1875rem;width:14.125rem;margin:0;
+         font-size:1.5rem;line-height:1.8125rem;letter-spacing:.12rem;font-weight:500;font-style:normal}
 
 /* ---------- редакционные блоки ---------- */
-.intro{margin2rem 0.5rem 0 0.5rem;min-height:11.3125rem;font-size:1.5rem;line-height:0.5rem}
-.intro p{margin0}
+.intro{margin:2.125rem 1.8125rem 0 2.125rem;min-height:11.3125rem;font-size:1.5rem;line-height:1.8125rem}
+.intro p{margin:0}
 /* в макете крупный дисплейный шрифт выше и шире: поднимаем кегль, чтобы совпала
    оптическая высота прописных (34–35px) при неизменном межстрочном 29px */
-.disp{font-style:italic;font-weight:800;font-size:2.875rem;line-height:0.5rem}
-.task{margin4rem 0 0;height:0.5rem;text-align:center}
-.bla{margin1.25rem 0.5rem 0 0.5rem;min-height:4.5625rem;font-size:1.5rem;line-height:0.5rem}
-.num{position:relative;height:5.9375rem;margin4rem 0 0}
-.ring{position:absolute;left:50%;top:-.125rem;margin-left-3rem;width:5.75rem;height:5.75rem;
+.disp{font-style:italic;font-weight:800;font-size:2.875rem;line-height:1.8125rem}
+.task{margin:3.8125rem 0 0;height:1.8125rem;text-align:center}
+.bla{margin:1.3125rem 1.8125rem 0 2.125rem;min-height:4.5625rem;font-size:1.5rem;line-height:1.8125rem}
+.num{position:relative;height:5.9375rem;margin:4.125rem 0 0}
+.ring{position:absolute;left:50%;top:-.125rem;margin-left:-2.875rem;width:5.75rem;height:5.75rem;
       border:.5rem solid var(--ink);border-radius:50%;display:grid;place-items:center}
 .ring b{font-size:2.875rem;font-weight:800;font-style:italic;line-height:1}
-.who-title{height:3.875rem;margin1.5rem 0 0;text-align:center}
+.who-title{height:3.875rem;margin:1.4375rem 0 0;text-align:center}
 .caret{font-size:1.25rem}
 
 /* ---------- кадр: галерея-листалка ---------- */
-.shot{position:relative;margin1.25rem 0 0;height:44.9375rem;overflow:hidden;cursor:grab;touch-action:auto}
+.shot{position:relative;margin:1.1875rem 0 0;height:44.9375rem;overflow:hidden;cursor:grab;touch-action:auto}
 .shot.is-js{touch-action:pan-y}
 .shot:active{cursor:grabbing}
 .track{display:flex;height:100%}
@@ -67,20 +67,20 @@ img{display:block}
 .slide{flex:0 0 100%;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;
        -webkit-user-drag:none;-webkit-touch-callout:none}
 .pager{position:absolute;left:9rem;top:42.6875rem;display:flex;align-items:center;gap:.4375rem}
-.pager button{border:0;padding0;background:var(--grey);width:.6875rem;height:.6875rem;border-radius:50%;
+.pager button{border:0;padding:0;background:var(--grey);width:.6875rem;height:.6875rem;border-radius:50%;
        cursor:pointer;transition:width .5s cubic-bezier(.22,.61,.36,1),border-radius .5s cubic-bezier(.22,.61,.36,1),background .2s}
 .pager button:hover{background:#c2c2c2}
 .pager button.is-active{width:3.375rem;border-radius:.4375rem}
 .pager button:focus-visible{outline:2px solid var(--ink);outline-offset:.1875rem}
 @media (prefers-reduced-motion:reduce){.shot.is-js .track{transition:none}.pager button{transition:none}}
 
-.composition{margin3rem 0 0;height:0.5rem;text-align:center}
+.composition{margin:2.875rem 0 0;height:1.8125rem;text-align:center}
 
 /* ---------- карточки состава ---------- */
 .card{position:relative;height:16.3125rem;border:3px solid var(--ink)}
-.card + .card{margin-top1.25rem}
-.card--first{margin-top2rem}
-.card--apron,.card--trousers{margin-top1.25rem}
+.card + .card{margin-top:1.25rem}
+.card--first{margin-top:2.0625rem}
+.card--apron,.card--trousers{margin-top:1.1875rem}
 .vline,.hline{position:absolute}
 .vline{width:0;border-left:var(--line)}
 .hline{left:-3px;right:-3px;height:0;border-top:var(--line)}
@@ -90,9 +90,9 @@ img{display:block}
 .h-141{top:8.625rem}
 .v-full{left:11.3125rem;top:-3px;height:16.3125rem} /* брюки: разделитель на всю высоту */
 .abs{position:absolute}
-.title{margin0;font-size:.8125rem;line-height:1.0625rem}
-.price{margin0;font-size:.8125rem;line-height:1.0625rem;text-align:right}
-.spec{margin0;font-size:.8125rem;line-height:1rem}
+.title{margin:0;font-size:.8125rem;line-height:1.0625rem}
+.price{margin:0;font-size:.8125rem;line-height:1.0625rem;text-align:right}
+.spec{margin:0;font-size:.8125rem;line-height:1rem}
 .spec .blue{color:var(--blue)}
 .badge{width:5.25rem;height:1.4375rem;border-radius:.625rem;background:var(--mint)}
 .badge-txt{font-size:.8125rem;line-height:1.0625rem}
@@ -103,7 +103,7 @@ img{display:block}
 .c1-spec{left:1.3225rem;top:11.125rem;width:22.105rem}
 /* футболка оверсайз */
 .tee-frame{left:.20375rem;top:.278125rem;width:10.8044rem;height:10.515rem;overflow:hidden}
-.tee-frame img{width:198.51%;height:164.31%;max-width:none;margin-left0;margin-top-31.24%}
+.tee-frame img{width:198.51%;height:164.31%;max-width:none;margin-left:0;margin-top:-31.24%}
 .qw{left:4rem;top:3rem;width:3.25rem;height:2.5625rem}
 .c2-title{left:13.9375rem;top:2.625rem;width:8.375rem}
 .c2-price{right:.4375rem;top:7.0625rem;width:5.3125rem}
@@ -120,19 +120,19 @@ img{display:block}
 .c4-spec{left:13.25rem;top:7.4375rem;width:10.1875rem}
 
 /* ---------- итог и метки ---------- */
-.total{margin.75rem 0.5rem 0 0.5rem;height:1.75rem;font-size:.875rem;line-height:1.75rem}
-.note{margin1.5rem 0.5rem 0 0.5rem;min-height:4.9375rem;font-size:1.5rem;line-height:0.5rem}
+.total{margin:.75rem 1.8125rem 0 2.1875rem;height:1.75rem;font-size:.875rem;line-height:1.75rem}
+.note{margin:1.6875rem 1.8125rem 0 2.1875rem;min-height:4.9375rem;font-size:1.5rem;line-height:1.8125rem}
 .marks{position:relative;height:6rem}
 .marks .bar{position:absolute;left:2.9375rem;top:0;width:4.396rem;height:5.1rem;display:grid;place-items:center}
 .marks .bar i{display:block;width:.9375rem;height:5.8125rem;background:var(--ink);transform:rotate(39.15deg)}
 .marks .star{position:absolute;left:10.125rem;top:.8125rem;width:4.25rem;height:4.0625rem}
 .marks .tri{position:absolute;left:17.125rem;top:.8125rem;width:3.8125rem;height:5.1875rem}
-.marks .star img{width:95.1%;height:90.45%;margin0 auto}
-.marks .tri img{width:86.6%;height:75%;margin0 auto}
+.marks .star img{width:95.1%;height:90.45%;margin:0 auto}
+.marks .tri img{width:86.6%;height:75%;margin:0 auto}
 
 /* ---------- 3D ---------- */
 /* ---------- видео лука (зациклено) ---------- */
-.model{position:relative;margin3rem 0 0;height:43.9375rem}
+.model{position:relative;margin:3rem 0 0;height:43.9375rem}
 .model video,.model img{width:100%;height:100%;object-fit:cover;display:block;background:#fff}
 /* Анимированный webp-дубль: картинка оживает без разрешения на воспроизведение и без
    скриптов, поэтому движение видно сразу даже там, где автоплей mp4 запрещён.
@@ -143,37 +143,37 @@ html:not(.js) .model video{opacity:0}
 html.js .model.playing .loop-img{display:none}
 /* кнопка показывается ТОЛЬКО если автоплей не сработал (iOS: режим энергосбережения,
    настройка «Автовоспроизведение», веб-вью Telegram). Тапается вся площадь видео. */
-.model .play{position:absolute;inset:0;z-index:2;display:none;padding0;border:0;background:transparent;cursor:pointer;
+.model .play{position:absolute;inset:0;z-index:2;display:none;padding:0;border:0;background:transparent;cursor:pointer;
        -webkit-tap-highlight-color:transparent}
 .model.paused .play{display:block}
 .model .play .tri{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;
        place-items:center;width:5.5rem;height:5.5rem;border-radius:50%;background:rgba(0,0,0,.6);color:#fff}
-.model .play svg{width:2rem;height:2.2rem;margin-left0.25rem}
+.model .play svg{width:2rem;height:2.2rem;margin-left:.3rem}
 
 /* ---------- обратная связь: комментарии к луку и пример формы ---------- */
-.talk,.send{margin2.5rem 0.5rem 0 0.5rem}
-.talk h2,.send h2{margin0 0 .5rem;font-size:1.5rem;line-height:0.5rem;text-align:left}
-.talk-hint,.send-hint{margin0 0 1rem;font-size:.9375rem;line-height:1.3125rem}
-.field{width:100%;margin0 0 0.5rem;padding0.5rem 0.75rem;border:1px solid var(--ink);border-radius:0;
+.talk,.send{margin:2.5rem 1.8125rem 0 2.1875rem}
+.talk h2,.send h2{margin:0 0 .5rem;font-size:1.5rem;line-height:1.8125rem;text-align:left}
+.talk-hint,.send-hint{margin:0 0 1.1rem;font-size:.9375rem;line-height:1.3125rem}
+.field{width:100%;margin:0 0 .625rem;padding:.625rem .6875rem;border:1px solid var(--ink);border-radius:0;
        background:var(--paper);color:var(--ink);font:italic 450 1rem/1.25rem var(--fam)}
 .field:focus{outline:2px solid var(--ink);outline-offset:-2px}
 textarea.field{min-height:5.5rem;resize:vertical}
-.btn{width:100%;margin.25rem 0 0;padding0.75rem 1rem;border:0;background:var(--ink);color:var(--paper);
+.btn{width:100%;margin:.25rem 0 0;padding:.8125rem 1rem;border:0;background:var(--ink);color:var(--paper);
      font:italic 500 1rem/1rem var(--fam);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .btn:hover{opacity:.85}
-.status{margin.75rem 0 0;font-size:.875rem;line-height:1.25rem;min-height:1.25rem}
+.status{margin:.75rem 0 0;font-size:.875rem;line-height:1.25rem;min-height:1.25rem}
 .status.err{color:#c00}
-.clist{list-style:none;margin1.5rem 0 0;padding0}
-.clist li{border-top:1px solid var(--ink);padding.75rem 0;font-size:.9375rem;line-height:1.3rem}
+.clist{list-style:none;margin:1.5rem 0 0;padding:0}
+.clist li{border-top:1px solid var(--ink);padding:.75rem 0;font-size:.9375rem;line-height:1.3rem}
 .clist .who{font-weight:600}
-.clist .when{display:block;opacity:.55;font-size:.8125rem;margin-top0.25rem}
-.send-file{width:100%;margin0 0 0.5rem;font-size:.875rem}
+.clist .when{display:block;opacity:.55;font-size:.8125rem;margin-top:.15rem}
+.send-file{width:100%;margin:0 0 .625rem;font-size:.875rem}
 
 /* ---------- заглушки макета ---------- */
-.stub{margin0 0.5rem 0 0.5rem;font-size:1.5rem;line-height:0.5rem}
-.stub p{margin0}
-.stub-1{margin-top3.5rem;min-height:4.0625rem}
-.stub-2{margin-top6rem;min-height:4.5625rem}
+.stub{margin:0 1.8125rem 0 2.125rem;font-size:1.5rem;line-height:1.8125rem}
+.stub p{margin:0}
+.stub-1{margin-top:3.4375rem;min-height:4.0625rem}
+.stub-2{margin-top:18.625rem;min-height:4.5625rem}
 .tail{height:6.25rem}
 
 /* ——— сворачиваемый «Состав лука» ——— */
@@ -196,63 +196,63 @@ textarea.field{min-height:5.5rem;resize:vertical}
 .pager.nav-tone button{background:rgba(127,127,127,.45)}
 
 /* ——— таблица расчёта ——— */
-.calc{margin3rem 0.5rem 0 0.5rem}
-.price-table{width:100%;border-collapse:collapse;margin-top1rem;font-style:normal}
+.calc{margin:2.875rem 1.8125rem 0 2.125rem}
+.price-table{width:100%;border-collapse:collapse;margin-top:1.125rem;font-style:normal}
 .price-table th{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);
-  text-align:left;padding0 0 .5rem;border-bottom:1px solid var(--ink);font-weight:500}
-.price-table td{padding0.5rem 0;border-bottom:1px solid rgba(17,17,17,.14);font-size:.9375rem;vertical-align:top}
+  text-align:left;padding:0 0 .5rem;border-bottom:1px solid var(--ink);font-weight:500}
+.price-table td{padding:.625rem 0;border-bottom:1px solid rgba(17,17,17,.14);font-size:.9375rem;vertical-align:top}
 .price-table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .price-table td.strong{font-weight:700}
-.price-table .muted{display:block;color:var(--grey);font-size:.75rem;margin-top0rem}
-.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top.75rem;font-weight:500}
-.calc .note{margin-top0.75rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
+.price-table .muted{display:block;color:var(--grey);font-size:.75rem;margin-top:.125rem}
+.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.75rem;font-weight:500}
+.calc .note{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
 /* ——— подвал ——— */
-.foot{margin-top3rem;border-top:1px solid var(--ink);padding1.5rem 0.5rem 3rem 0.5rem}
-.foot-inner p{font-size:.8125rem;line-height:1.5;color:var(--ink);margin-bottom.5rem}
+.foot{margin-top:3.25rem;border-top:1px solid var(--ink);padding:1.5rem 1.8125rem 3rem 2.125rem}
+.foot-inner p{font-size:.8125rem;line-height:1.5;color:var(--ink);margin-bottom:.5rem}
 .foot-brand{font-size:.9375rem;letter-spacing:.02em}
 .foot-small{color:var(--grey)}
 
 /* ——— таблицы расчёта: компактные, без лишней высоты ——— */
-.calc{margin1rem 0.5rem 0 0.5rem}
-.calc.summary{margin-top2rem}
+.calc{margin:1.125rem 1.8125rem 0 2.125rem}
+.calc.summary{margin-top:2.25rem}
 .price-table{width:100%;border-collapse:collapse;font-style:normal;line-height:1.2}
 .price-table th{font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);
-  text-align:left;padding0 0 0.25rem;border-bottom:1px solid var(--ink);font-weight:500}
+  text-align:left;padding:0 0 .3125rem;border-bottom:1px solid var(--ink);font-weight:500}
 .price-table th.num,.price-table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.price-table td{padding0.25rem 0;border-bottom:1px solid rgba(17,17,17,.12);font-size:.8125rem}
-.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top0.5rem;font-weight:500}
+.price-table td{padding:.3125rem 0;border-bottom:1px solid rgba(17,17,17,.12);font-size:.8125rem}
+.price-table tfoot td{border-bottom:0;border-top:1px solid var(--ink);padding-top:.4375rem;font-weight:500}
 .price-table td.strong{font-weight:700}
-.calc .note{margin-top0.5rem;font-size:.75rem;line-height:1.4;color:var(--grey)}
+.calc .note{margin-top:.625rem;font-size:.75rem;line-height:1.4;color:var(--grey)}
 
 /* ——— таблицы: принудительно компактные строки ——— */
 .calc .price-table{line-height:1.1}
 .calc .price-table th,.calc .price-table td{line-height:1.1 !important;height:auto}
-.calc .price-table td{padding.25rem 0 !important;font-size:.8125rem !important;vertical-align:baseline}
-.calc .price-table th{padding0 0 .25rem !important;font-size:.625rem !important}
-.calc .price-table tfoot td{border-top:1px solid var(--ink);padding-top0.25rem !important;border-bottom:0}
+.calc .price-table td{padding:.25rem 0 !important;font-size:.8125rem !important;vertical-align:baseline}
+.calc .price-table th{padding:0 0 .25rem !important;font-size:.625rem !important}
+.calc .price-table tfoot td{border-top:1px solid var(--ink);padding-top:.375rem !important;border-bottom:0}
 .calc .price-table tr,.calc .price-table tbody,.calc .price-table thead,.calc .price-table tfoot{height:auto}
 
 /* ——— единый вид таблиц: одна ширина, небольшие поля, высота строк 40px, мелкие заголовки ——— */
-section.stub{margin-left0.5rem !important;margin-right0.5rem !important}
-section.stub .calc{margin-left0 !important;margin-right0 !important}
-main.page .calc{margin-left0.5rem !important;margin-right0.5rem !important}
+section.stub{margin-left:1rem !important;margin-right:1rem !important}
+section.stub .calc{margin-left:0 !important;margin-right:0 !important}
+main.page .calc{margin-left:1rem !important;margin-right:1rem !important}
 .calc .price-table{width:100% !important;table-layout:auto}
-.calc .price-table td{height:2.5rem !important;padding0 !important;vertical-align:middle !important;
+.calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
   font-size:.8125rem !important;line-height:1.15 !important}
-.calc .price-table th{padding0 0 0.25rem !important;font-size:.625rem !important}
-.calc .price-table tfoot td{padding-top0.5rem !important}
+.calc .price-table th{padding:0 0 .3125rem !important;font-size:.625rem !important}
+.calc .price-table tfoot td{padding-top:.4375rem !important}
 .calc-title,.calc .composition{font-size:1.125rem !important;line-height:1.15 !important;
-  margin0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important}
-.calc.summary{margin-top2rem !important}
+  margin:0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important}
+.calc.summary{margin-top:2rem !important}
 
 /* ——— выравнивание таблиц: одинаковые поля, одинаковая ширина ——— */
-section.stub{margin-left0.5rem !important;margin-right0.5rem !important;padding0 !important}
-section.stub .calc{margin0 !important;padding0 !important}
-main.page .calc{margin-left0.5rem !important;margin-right0.5rem !important;padding0 !important}
+section.stub{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+section.stub .calc{margin:0 !important;padding:0 !important}
+main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
 .calc .price-table{width:100% !important;min-width:100% !important;box-sizing:border-box}
 
 /* одинаковая ширина обеих таблиц: полотно минус поля по 2rem с каждой стороны */
-.calc .price-table{width:calc(100vw - 1rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
 </style>
 </head>
 <body>
@@ -722,23 +722,17 @@ main.page .calc{margin-left0.5rem !important;margin-right0.5rem !important;paddi
 
 <style>
 /* ===== финальные правила: таблицы и их заголовки (стоят последними, поэтому главнее ===== */
-.calc .price-table{width:calc(100vw - 1rem) !important;min-width:0 !important;max-width:none !important}
-.calc .price-table td{height:2.5rem !important;padding0 !important;vertical-align:middle !important;
+.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
   font-size:.8125rem !important;line-height:1.15 !important}
-.calc .price-table th{padding0 0 0.25rem !important;font-size:.625rem !important}
-.calc .price-table tfoot td{padding-top0.5rem !important}
+.calc .price-table th{padding:0 0 .3125rem !important;font-size:.625rem !important}
+.calc .price-table tfoot td{padding-top:.4375rem !important}
 .calc-title,.calc .composition,h2.composition.calc-title{font-size:1.125rem !important;line-height:1.15 !important;
-  margin0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important;
+  margin:0 0 .5rem !important;text-align:left !important;height:auto !important;display:block !important;
   letter-spacing:0 !important}
-main.page .calc{margin-left0.5rem !important;margin-right0.5rem !important;padding0 !important}
-section.stub .calc,section.stub{margin0 !important;padding0 !important}
-section.stub{margin-left0.5rem !important;margin-right0.5rem !important}
-</style>
-
-<style>
-/* ===== заголовки по центру: без боковых полей, верхний отступ по шкале ===== */
-h2.disp:not(.calc-title),h1.disp:not(.calc-title),h2.task,h2.composition{
-  margin-left:0 !important;margin-right:0 !important;margin-top:2rem !important}
+main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding:0 !important}
+section.stub .calc,section.stub{margin:0 !important;padding:0 !important}
+section.stub{margin-left:1rem !important;margin-right:1rem !important}
 </style>
 </body>
 </html>
