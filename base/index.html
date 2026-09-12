@@ -584,6 +584,17 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
       </tbody>
       <tfoot><tr><td>Итого</td><td class="num" data-sets>8</td><td></td><td class="num strong" data-grand>100 000 ₽</td></tr></tfoot>
     </table>
+
+    <div class="discounts" data-discounts data-offer-date="2026-09-12">
+      <h3 class="calc-title disp composition" style="cursor:default">Скидки</h3>
+      <div class="chips">
+        <button type="button" class="chip" data-disc="speed" data-pct="5">+5% скорость оплаты<span>2 дня</span></button>
+        <button type="button" class="chip" data-disc="tirag" data-pct="10" data-min-sets="20">+10% на тираж<span>от 20 комплектов</span></button>
+        <button type="button" class="chip" data-disc="fullset" data-pct="5">+5% весь парк<span>все три лука</span></button>
+        <button type="button" class="chip manual" data-disc="repeat" data-pct="7">+7% повтор к сезону<span>по решению менеджера</span></button>
+      </div>
+      <p class="disc-sum" data-disc-sum>Скидки зажгутся, когда условия выполнятся.</p>
+    </div>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
       после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
   </section>
@@ -813,6 +824,90 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   });
 
   summaryTotal();
+})();
+</script>
+
+<style>
+/* ===== блок скидок: пилюли, серые по умолчанию, активные — акцентные ===== */
+:root{--accent:#7bf1c6}
+.discounts{margin:1.5rem 1.8125rem 0 2.125rem}
+.discounts .calc-title{margin-bottom:.75rem !important}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{font-family:inherit;font-style:italic;font-weight:700;font-size:.875rem;letter-spacing:.02em;
+  text-transform:uppercase;color:#8a8a8a;background:#efefef;border:0;border-radius:999px;
+  padding:.5rem .875rem;cursor:pointer;display:inline-flex;align-items:baseline;gap:.375rem;
+  transition:background .25s ease,color .25s ease,transform .2s ease;line-height:1}
+.chip span{font-style:normal;font-weight:400;font-size:.6875rem;letter-spacing:0;text-transform:none;opacity:.8}
+.chip:active{transform:scale(.97)}
+.chip.on{background:var(--accent);color:#101010}
+.chip.on span{opacity:.7}
+.chip.manual::after{content:'+';font-size:.75rem;opacity:.5;margin-left:.125rem}
+.chip.manual.on::after{content:'✓';opacity:.8}
+.disc-sum{margin-top:.875rem;font-size:.8125rem;line-height:1.45;color:var(--grey)}
+.disc-sum b{font-weight:700;color:var(--ink)}
+</style>
+
+<script>
+/* Скидки: считают состояние по условиям и пересчитывают итог вместе с таблицами. */
+(() => {
+  const box = document.querySelector('[data-discounts]');
+  if (!box) return;
+  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/\u00A0/g, ' ') + ' ₽';
+  const chips = [...box.querySelectorAll('.chip')];
+  const manual = {};
+  const offer = new Date(box.dataset.offerDate + 'T23:59:59');
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    if (!c.classList.contains('manual')) return;
+    manual[c.dataset.disc] = !manual[c.dataset.disc];
+    update();
+  }));
+
+  function state() {
+    const summary = document.querySelector('.calc.summary');
+    const sets = Number(summary.querySelector('[data-sets]').textContent);
+    const qtys = [...summary.querySelectorAll('[data-qty]')].map(s => Number(s.textContent));
+    const grand = Number((summary.querySelector('[data-grand]').textContent || '')
+      .replace(/[^0-9]/g, ''));
+    const days = Math.floor((new Date() - offer) / 86400000);
+    return {
+      sets, grand,
+      speed: new Date() <= offer,
+      tirag: sets >= 20,
+      fullset: qtys.length === 3 && qtys.every(q => q > 0),
+      repeat: !!manual.repeat,
+      days: days,
+    };
+  }
+
+  function update() {
+    const st = state();
+    let pct = 0, on = [];
+    chips.forEach(c => {
+      const key = c.dataset.disc;
+      const active = !!st[key];
+      c.classList.toggle('on', active);
+      if (active) { pct += Number(c.dataset.pct); on.push(c.textContent.split(' ')[0]); }
+    });
+    const sum = box.querySelector('[data-disc-sum]');
+    if (!pct) {
+      sum.innerHTML = 'Активных скидок нет — итог <b>' + fmt(st.grand) + '</b>. ' +
+        (st.sets < 20 ? 'Тиражная скидка зажжётся от 20 комплектов.' : '');
+    } else {
+      const pay = Math.round(st.grand * (100 - pct) / 100);
+      sum.innerHTML = 'Скидки: <b>' + on.join(' + ') + '</b> — суммарно ' + pct + '%. ' +
+        'Итого со скидками: <b>' + fmt(pay) + '</b>, выгода <b>' + fmt(st.grand - pay) + '</b>.';
+    }
+  }
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-step]')) setTimeout(update, 0);
+  });
+  document.addEventListener('change', e => { if (e.target.matches('[data-pick]')) setTimeout(update, 0); });
+  const obs = new MutationObserver(() => update());
+  const sum = document.querySelector('.calc.summary');
+  obs.observe(sum, {childList: true, subtree: true, characterData: true});
+  update();
 })();
 </script>
 </body>
