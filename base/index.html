@@ -850,6 +850,16 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     summaryTotal();
   });
 
+  /* ручная скидка («повтор»): клик по плашке включает её — считает тот же единственный проход */
+  const dbox = document.querySelector('[data-discounts]');
+  if (dbox) dbox.addEventListener('click', e => {
+    if (e.target.closest('.q')) return;
+    const chip = e.target.closest('.chip.manual');
+    if (!chip) return;
+    chip.classList.toggle('on');
+    summaryTotal();
+  });
+
   summaryTotal();
 })();
 </script>
@@ -874,75 +884,7 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 .disc-sum b{font-weight:700;color:var(--ink)}
 </style>
 
-<script>
-/* Скидки: считают состояние по условиям и пересчитывают итог вместе с таблицами. */
-(() => {
-  const box = document.querySelector('[data-discounts]');
-  if (!box) return;
-  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/\u00A0/g, ' ') + ' ₽';
-  const chips = [...box.querySelectorAll('.chip')];
-  const manual = {};
-  const offer = new Date(box.dataset.offerDate + 'T23:59:59');
 
-  chips.forEach(c => c.addEventListener('click', () => {
-    if (!c.classList.contains('manual')) return;
-    manual[c.dataset.disc] = !manual[c.dataset.disc];
-    update();
-  }));
-
-  function state() {
-    const summary = document.querySelector('.calc.summary');
-    const sets = Number(summary.querySelector('[data-sets]').textContent);
-    const qtys = [...summary.querySelectorAll('[data-qty]')].map(s => Number(s.textContent));
-    const gcell = summary.querySelector('[data-grand]');
-    const grand = Number(String(gcell.dataset.base || gcell.textContent || '').replace(/[^0-9]/g, ''));
-    const days = Math.floor((new Date() - offer) / 86400000);
-    return {
-      sets, grand,
-      speed: new Date() <= offer,
-      tirag: sets >= 20,
-      fullset: qtys.length === 3 && qtys.every(q => q > 0),
-      repeat: !!manual.repeat,
-      days: days,
-    };
-  }
-
-  function update() {
-    const st = state();
-    let pct = 0, on = [];
-    chips.forEach(c => {
-      const key = c.dataset.disc;
-      const active = !!st[key];
-      c.classList.toggle('on', active);
-      if (active) { pct += Number(c.dataset.pct); on.push(c.textContent.split(' ')[0]); }
-    });
-    const cell = document.querySelector('[data-grand]');
-    const line = document.querySelector('[data-grand-disc]');
-    const base = Number((cell.dataset.base || '').replace(/[^0-9]/g, '')) || st.grand;
-    if (line) {
-      const tr = line.closest('tr');          // у вынесенного из таблицы итога строки нет — писать только в блок
-      if (!pct) {
-        cell.textContent = fmt(base);
-        if (tr) tr.classList.remove('on');
-      } else {
-        const pay = Math.round(base * (100 - pct) / 100);
-        cell.innerHTML = '<s>' + fmt(base) + '</s>';
-        line.innerHTML = '<b>' + fmt(pay) + '</b>';
-        if (tr) tr.classList.add('on');
-      }
-    } else {
-      cell.textContent = fmt(base);
-    }
-  }
-
-  document.addEventListener('click', e => {
-    if (e.target.closest('[data-step]')) setTimeout(update, 0);
-  });
-  document.addEventListener('change', e => { if (e.target.matches('[data-pick]')) setTimeout(update, 0); });
-  // пересчёт вызываем только по действиям пользователя: слежение за DOM давало бесконечный цикл
-  update();
-})();
-</script>
 
 <style>
 /* галочка без внешней рамки */
@@ -1057,8 +999,7 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
   box.addEventListener('click', e => {
     const q = e.target.closest('.q');
     if (q) { e.stopPropagation(); open(q.closest('.chip').dataset.disc); return; }
-    const chip = e.target.closest('.chip.manual');
-    if (chip) { chip.classList.toggle('on'); document.dispatchEvent(new Event('kp-recalc')); }
+    /* включение ручной скидки делает общий расчёт — здесь только пояснение */
   });
   veil.addEventListener('click', e => {
     if (e.target.closest('.close') || e.target === veil) close();
