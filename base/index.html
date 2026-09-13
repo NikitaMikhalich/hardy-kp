@@ -795,6 +795,11 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     });
     summary.querySelector('[data-sets]').textContent = sets;
 
+    // базовую сумму пишем ДО блока скидок: он накрывает её зачёркиванием (<s>), а не наоборот
+    const gc = summary.querySelector('[data-grand]');
+    gc.dataset.base = grand;
+    gc.textContent = fmt(grand);
+
     // --- скидки считаем в том же проходе: один источник правды ---
     const dbox = document.querySelector('[data-discounts]');
     const tb = document.querySelector('.total-block');
@@ -827,7 +832,6 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
         }
       }
     }
-    const gc = summary.querySelector('[data-grand]'); gc.dataset.base = grand; gc.textContent = fmt(grand);
   }
 
   // восстановление выбора
