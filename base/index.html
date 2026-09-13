@@ -252,7 +252,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 .calc .price-table{width:100% !important;min-width:100% !important;box-sizing:border-box}
 
 /* одинаковая ширина обеих таблиц: полотно минус поля по 2rem с каждой стороны */
-.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table{width:100% !important;min-width:0 !important;max-width:none !important}
 </style>
 </head>
 <body>
@@ -575,7 +575,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
   
   <section class="calc summary">
     <h2 class="disp composition" style="cursor:default">Сводно по лукам</h2>
-    <table class="price-table"><colgroup><col style="width:44%"><col style="width:18%"><col style="width:19%"><col style="width:19%"></colgroup>
+    <table class="price-table"><colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
       <thead><tr><th></th><th class="num">Кол-во</th><th class="num">Цена лука</th><th class="num">Сумма</th></tr></thead>
       <tbody>
         <tr data-sync-look data-price="12500"><td>Официант</td><td class="num"><span class="stepper"><button type="button" data-step="-1" aria-label="меньше">−</button><span data-qty>4</span><button type="button" data-step="1" aria-label="больше">+</button></span></td><td class="num" data-price-cell>12 500 ₽</td><td class="num" data-sum>50 000 ₽</td></tr>
@@ -584,10 +584,11 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
       </tbody>
     </table>
 
+    
+    <div class="total-block"><span class="tb-label">Итого</span><span class="tb-sets" data-sets>8</span><span class="tb-price" data-grand>100 000 ₽</span><span class="tb-disc" style="display:none"><span class="tb-dlabel">с учётом скидок</span><span class="tb-dprice" data-grand-disc></span></span></div>
     <div class="discounts" data-discounts data-offer-ts="2026-09-13T00:42:28" data-offer-date="2026-09-13">
       <h3 class="calc-title disp composition" style="cursor:default">Скидки</h3>
       <div class="chips"><div class="chip" data-disc="speed" data-pct="5"><span class="chip-txt">5% за скорость</span><button type="button" class="q" aria-label="пояснение" data-help="Действует 2 дня с даты отправки предложения: успеваете оплатить — скидка идёт на весь заказ.">?</button></div><div class="chip" data-disc="tirag" data-pct="10"><span class="chip-txt">10% на тираж</span><button type="button" class="q" aria-label="пояснение" data-help="Включается, когда всего в заказе 20 комплектов и больше.">?</button></div><div class="chip" data-disc="fullset" data-pct="5"><span class="chip-txt">5% за парк</span><button type="button" class="q" aria-label="пояснение" data-help="Даём, когда в заказ входят все три лука: официант, бармен и админ.">?</button></div><div class="chip manual" data-disc="repeat" data-pct="7"><span class="chip-txt">7% повтор</span><button type="button" class="q" aria-label="пояснение" data-help="Для тех, кто возвращается к обновлению коллекции. Включает менеджер.">?</button></div></div></div>
-    <div class="total-block"><span class="tb-label">Итого</span><span class="tb-sets" data-sets>8</span><span class="tb-price" data-grand>100 000 ₽</span><span class="tb-disc" style="display:none"><span class="tb-dlabel">с учётом скидок</span><span class="tb-dprice" data-grand-disc></span></span></div>
     <p class="note">В каждом луке нанесение знака включено. Цены предварительные: финальная смета —
       после утверждения состава и размера знака. Повторный заказ к сезону — со скидкой.</p>
   </section>
@@ -726,7 +727,7 @@ main.page .calc{margin-left:1rem !important;margin-right:1rem !important;padding
 
 <style>
 /* ===== финальные правила: таблицы и их заголовки (стоят последними, поэтому главнее ===== */
-.calc .price-table{width:calc(100vw - 2rem) !important;min-width:0 !important;max-width:none !important}
+.calc .price-table{width:100% !important;min-width:0 !important;max-width:none !important}
 .calc .price-table td{height:2.5rem !important;padding:0 !important;vertical-align:middle !important;
   font-size:.8125rem !important;line-height:1.15 !important}
 .calc .price-table th{padding:0 0 .3125rem !important;font-size:.625rem !important}
@@ -856,7 +857,7 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 <style>
 /* ===== блок скидок: пилюли, серые по умолчанию, активные — акцентные ===== */
 :root{--accent:#7bf1c6}
-.discounts{margin:1.5rem 1.8125rem 0 2.125rem}
+.discounts{margin:1.5rem 0 0 0}
 .discounts .calc-title{margin-bottom:.75rem !important}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem}
 .chip{font-family:inherit;font-style:italic;font-weight:700;font-size:.875rem;letter-spacing:.02em;
@@ -919,15 +920,15 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
     const line = document.querySelector('[data-grand-disc]');
     const base = Number((cell.dataset.base || '').replace(/[^0-9]/g, '')) || st.grand;
     if (line) {
-      const tr = line.closest('tr');
+      const tr = line.closest('tr');          // у вынесенного из таблицы итога строки нет — писать только в блок
       if (!pct) {
         cell.textContent = fmt(base);
-        tr.classList.remove('on');
+        if (tr) tr.classList.remove('on');
       } else {
         const pay = Math.round(base * (100 - pct) / 100);
         cell.innerHTML = '<s>' + fmt(base) + '</s>';
         line.innerHTML = '<b>' + fmt(pay) + '</b>';
-        tr.classList.add('on');
+        if (tr) tr.classList.add('on');
       }
     } else {
       cell.textContent = fmt(base);
@@ -1118,13 +1119,13 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 
 
 <style>
-/* строка итога: простой флекс, без сетки — ничего не уезжает */
+/* строка итога: простой флекс, без сетки — ничего не уезжает; края — как у таблицы расчёта */
 .total-block{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
-  gap:.5rem;margin:.5rem 1.8125rem 0 2.125rem}
+  row-gap:.5rem;margin:.5rem 0 0 0}
 .total-block .tb-label{font-style:normal;font-weight:500;font-size:.875rem;color:var(--ink)}
 .total-block .tb-sets{font-style:normal;font-size:.875rem;font-variant-numeric:tabular-nums;
   flex:1 1 auto;text-align:center}
-.total-block .tb-price{font-style:normal;font-weight:700;font-size:.9375rem;color:var(--ink)}
+.total-block .tb-price{flex:1 1 auto;text-align:right;font-style:normal;font-weight:700;font-size:.9375rem;color:var(--ink)}
 .total-block .tb-price s{color:#8a8a8a;text-decoration:line-through}
 .total-block .tb-disc{flex:0 0 100%;display:flex;justify-content:space-between;align-items:baseline;
   margin-top:.25rem}
@@ -1148,8 +1149,18 @@ tr[data-price].off td:nth-child(2){text-decoration:line-through}
 
 <style>
 /* число комплектов — по центру той же колонки, что и цифры в строках */
-.total-block .tb-sets{flex:0 0 18% !important;text-align:center !important}
-.total-block .tb-label{flex:0 0 44% !important}
+.total-block .tb-sets{flex:0 0 22% !important;text-align:center !important}
+.total-block .tb-label{flex:0 0 34% !important}
+</style>
+
+<style>
+/* ——— геометрия сводной: фиксированная сетка колонок (34/22/22/22), как в colgroup;
+   тогда итог под таблицей встаёт цифра-в-цифру: центры колонки «Кол-во» и числа комплектов совпадают ——— */
+.calc.summary .price-table{table-layout:fixed !important}
+.calc.summary .price-table th:nth-child(2),.calc.summary .price-table td:nth-child(2){
+  text-align:center !important;padding-left:0 !important;padding-right:0 !important}
+/* зазор между числовыми колонками: без него «12 500 ₽» и «50 000 ₽» стоят вплотную */
+.calc .price-table th.num,.calc .price-table td.num{padding-left:.5rem !important}
 </style>
 </body>
 </html>
